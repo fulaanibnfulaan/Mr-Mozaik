@@ -1,0 +1,62 @@
+{
+  "nav": { "home": "Menü", "cart": "Sepet", "account": "Hesap", "orders": "Siparişler" },
+  "home": {
+    "search": "Menüde ara...", "open": "Açık", "closed": "Kapalı", "until": "kadar",
+    "opens_at": "Açılış saati", "delivery": "Teslimat", "pickup": "Gel al", "bestseller": "Çok satan",
+    "limited": "Sınırlı", "sold_out": "Tükendi", "vegetarian": "Vejetaryen", "min": "dk",
+    "add": "Ekle", "recommendation_evening": "İyi akşamlar! Cuma akşamları hep dürüm sipariş ediyorsunuz 😏",
+    "recommendation_reorder": "Hızlı tekrar sipariş", "others_ordered": "Diğerleri de sipariş etti", "all_halal": "Tüm menümüz helaldir 🌙"
+  },
+  "cart": {
+    "title": "Sepet", "empty": "Sepetiniz boş", "empty_cta": "Menüye bak", "subtotal": "Ara toplam",
+    "delivery": "Teslimat ücreti", "free_delivery": "Ücretsiz", "tip": "Bahşiş", "eco": "Plastik çatal bıçak istemiyorum",
+    "eco_points": "+10 yeşil puan", "total": "Toplam", "points_earn": "Bu sipariş ile {points} puan kazanıyorsunuz",
+    "checkout": "Ödemeye geç", "add_drink": "1,50€ ekstra için içecek ekle?",
+    "upsell": "Ücretsiz teslimat için {amount} kaldı", "split": "Hesabı böl", "coupon": "Kupon kodu girin",
+    "apply": "Uygula", "remove": "Kaldır"
+  },
+  "checkout": {
+    "title": "Ödeme", "delivery_method": "Teslimat yöntemi", "pickup": "Gel al", "delivery": "Teslimat",
+    "address": "Teslimat adresi", "add_address": "Yeni adres ekle", "contactless": "Temassız teslimat",
+    "contactless_desc": "Kapıya bırak", "time": "Ne zaman?", "asap": "En kısa sürede (~25 dk)",
+    "schedule": "Zaman seç", "payment": "Ödeme yöntemi", "ideal": "iDEAL", "card": "Kredi kartı",
+    "giftcard": "Hediye kartı", "note": "Mutfak için notlar (isteğe bağlı)", "place_order": "Sipariş ver",
+    "processing": "Ödeme işleniyor...", "zone_check": "Adresinizin teslimat bölgemizde olup olmadığını kontrol edin"
+  },
+  "tracking": {
+    "title": "Siparişiniz", "received": "Alındı", "preparing": "Hazırlanıyor", "ready": "Hazır",
+    "on_the_way": "Yolda", "delivered": "Teslim edildi", "estimated": "Tahmini süre",
+    "chat": "Restoran ile sohbet", "review_cta": "Siparişiniz nasıldı?",
+    "review_google": "Google'da yorum bırakın ⭐", "share": "Siparişinizi paylaşın"
+  },
+  "account": {
+    "title": "Hesap", "loyalty": "Sadakat", "points": "puan", "level_bronze": "Bronz",
+    "level_silver": "Gümüş", "level_gold": "Altın", "stamp_card": "Damga kartı", "stamp_free": "Ücretsiz yemek! 🎉",
+    "streak": "hafta üst üste", "challenges": "Meydan okumalar", "badges": "Rozetler", "spin": "Çarkı çevir",
+    "spin_available": "Mevcut", "pass": "Mr. Mozaik Pass",
+    "pass_desc": "€9,99/ay — Her zaman ücretsiz teslimat + %10 indirim",
+    "orders": "Sipariş geçmişi", "favorites": "Favoriler", "addresses": "Adreslerim",
+    "dietary": "Diyet tercihleri", "language": "Dil", "notifications": "Bildirimler",
+    "business": "Kurumsal hesap", "catering": "Catering talep et", "logout": "Çıkış yap", "reorder": "Tekrar sipariş"
+  },
+  "onboarding": {
+    "step1_title": "Mr. Mozaik'e hoş geldiniz!", "step1_desc": "Dilinizi seçin",
+    "step2_title": "Diyet tercihleri", "step2_desc": "Tercihlerinizi ayarlayın",
+    "step3_title": "Adresiniz", "step3_desc": "Teslimat adresinizi bulun",
+    "skip": "Atla", "next": "İleri", "start": "Sipariş vermeye başla",
+    "vegetarian": "Vejetaryen", "no_onion": "Soğansız", "no_coriander": "Kişnişsiz",
+    "no_nuts": "Fındıksız", "gluten_free": "Glutensiz", "lactose_free": "Laktozsuz",
+    "all_halal": "Tüm menümüz helaldir 🌙"
+  },
+  "admin": {
+    "title": "Yönetici Paneli", "orders": "Siparişler", "menu": "Menü yönetimi", "analytics": "Analitik",
+    "team": "Ekip", "settings": "Ayarlar", "accept": "Kabul et", "preparing": "Hazırlanıyor",
+    "ready": "Hazır", "on_the_way": "Yolda", "pause": "Siparişleri duraklat", "peak_mode": "Yoğun saat modu"
+  },
+  "common": {
+    "loading": "Yükleniyor...", "error": "Bir şeyler ters gitti", "retry": "Tekrar dene", "cancel": "İptal",
+    "save": "Kaydet", "delete": "Sil", "edit": "Düzenle", "close": "Kapat", "back": "Geri",
+    "confirm": "Onayla", "search": "Ara", "filter": "Filtrele", "offline": "İnternet bağlantısı yok",
+    "offline_desc": "Çevrimdışısınız. Bazı özellikler kullanılamaz."
+  }
+}

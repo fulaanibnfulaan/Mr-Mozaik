@@ -1,0 +1,62 @@
+{
+  "nav": { "home": "القائمة", "cart": "السلة", "account": "الحساب", "orders": "الطلبات" },
+  "home": {
+    "search": "ابحث في القائمة...", "open": "مفتوح", "closed": "مغلق", "until": "حتى",
+    "opens_at": "يفتح الساعة", "delivery": "توصيل", "pickup": "استلام", "bestseller": "الأكثر مبيعاً",
+    "limited": "محدود", "sold_out": "نفد", "vegetarian": "نباتي", "min": "د",
+    "add": "أضف", "recommendation_evening": "مساء الخير! دائماً تطلب الشاورما يوم الجمعة 😏",
+    "recommendation_reorder": "إعادة الطلب السريع", "others_ordered": "طلب الآخرون أيضاً", "all_halal": "قائمتنا بأكملها حلال 🌙"
+  },
+  "cart": {
+    "title": "السلة", "empty": "سلتك فارغة", "empty_cta": "عرض القائمة", "subtotal": "المجموع الفرعي",
+    "delivery": "رسوم التوصيل", "free_delivery": "مجاني", "tip": "إكرامية", "eco": "بدون أدوات مائدة بلاستيكية",
+    "eco_points": "+10 نقاط خضراء", "total": "المجموع", "points_earn": "ستكسب {points} نقطة بهذا الطلب",
+    "checkout": "متابعة الدفع", "add_drink": "أضف مشروباً بـ 1.50€ إضافية؟",
+    "upsell": "{amount} للتوصيل المجاني", "split": "تقسيم الفاتورة", "coupon": "أدخل رمز الكوبون",
+    "apply": "تطبيق", "remove": "إزالة"
+  },
+  "checkout": {
+    "title": "الدفع", "delivery_method": "طريقة التوصيل", "pickup": "استلام", "delivery": "توصيل",
+    "address": "عنوان التوصيل", "add_address": "إضافة عنوان جديد", "contactless": "توصيل بدون تلامس",
+    "contactless_desc": "اترك أمام الباب", "time": "متى؟", "asap": "في أقرب وقت (~25 دقيقة)",
+    "schedule": "اختر وقتاً", "payment": "طريقة الدفع", "ideal": "iDEAL", "card": "بطاقة ائتمان",
+    "giftcard": "بطاقة هدية", "note": "ملاحظات للمطبخ (اختياري)", "place_order": "تأكيد الطلب",
+    "processing": "جارٍ معالجة الدفع...", "zone_check": "تحقق من وجود عنوانك في منطقة التوصيل"
+  },
+  "tracking": {
+    "title": "طلبك", "received": "تم الاستلام", "preparing": "قيد التحضير", "ready": "جاهز",
+    "on_the_way": "في الطريق", "delivered": "تم التوصيل", "estimated": "الوقت المتوقع",
+    "chat": "الدردشة مع المطعم", "review_cta": "كيف كان طلبك؟",
+    "review_google": "اترك تقييماً على Google ⭐", "share": "شارك طلبك"
+  },
+  "account": {
+    "title": "الحساب", "loyalty": "الولاء", "points": "نقطة", "level_bronze": "برونزي",
+    "level_silver": "فضي", "level_gold": "ذهبي", "stamp_card": "بطاقة الطوابع", "stamp_free": "وجبة مجانية! 🎉",
+    "streak": "أسابيع متتالية", "challenges": "التحديات", "badges": "الشارات", "spin": "أدر العجلة",
+    "spin_available": "متاح", "pass": "بطاقة Mr. Mozaik",
+    "pass_desc": "€9.99/شهر — توصيل مجاني دائماً + خصم 10%",
+    "orders": "سجل الطلبات", "favorites": "المفضلة", "addresses": "عناويني",
+    "dietary": "التفضيلات الغذائية", "language": "اللغة", "notifications": "الإشعارات",
+    "business": "حساب الأعمال", "catering": "طلب خدمة التموين", "logout": "تسجيل الخروج", "reorder": "إعادة الطلب"
+  },
+  "onboarding": {
+    "step1_title": "مرحباً بك في Mr. Mozaik!", "step1_desc": "اختر لغتك",
+    "step2_title": "التفضيلات الغذائية", "step2_desc": "حدد تفضيلاتك",
+    "step3_title": "عنوانك", "step3_desc": "أوجد عنوان التوصيل الخاص بك",
+    "skip": "تخطي", "next": "التالي", "start": "ابدأ الطلب",
+    "vegetarian": "نباتي", "no_onion": "بدون بصل", "no_coriander": "بدون كزبرة",
+    "no_nuts": "بدون مكسرات", "gluten_free": "خالي من الجلوتين", "lactose_free": "خالي من اللاكتوز",
+    "all_halal": "قائمتنا بأكملها حلال 🌙"
+  },
+  "admin": {
+    "title": "لوحة التحكم", "orders": "الطلبات", "menu": "إدارة القائمة", "analytics": "التحليلات",
+    "team": "الفريق", "settings": "الإعدادات", "accept": "قبول", "preparing": "قيد التحضير",
+    "ready": "جاهز", "on_the_way": "في الطريق", "pause": "إيقاف الطلبات مؤقتاً", "peak_mode": "وضع ساعة الذروة"
+  },
+  "common": {
+    "loading": "جارٍ التحميل...", "error": "حدث خطأ ما", "retry": "حاول مرة أخرى", "cancel": "إلغاء",
+    "save": "حفظ", "delete": "حذف", "edit": "تعديل", "close": "إغلاق", "back": "رجوع",
+    "confirm": "تأكيد", "search": "بحث", "filter": "تصفية", "offline": "لا يوجد اتصال بالإنترنت",
+    "offline_desc": "أنت غير متصل. بعض الميزات غير متاحة."
+  }
+}

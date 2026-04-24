@@ -1,0 +1,62 @@
+{
+  "nav": { "home": "Menu", "cart": "Cart", "account": "Account", "orders": "Orders" },
+  "home": {
+    "search": "Search the menu...", "open": "Open", "closed": "Closed", "until": "until",
+    "opens_at": "Opens at", "delivery": "Delivery", "pickup": "Pickup", "bestseller": "Bestseller",
+    "limited": "Limited", "sold_out": "Sold out", "vegetarian": "Vegetarian", "min": "min",
+    "add": "Add", "recommendation_evening": "Good evening! You always order shawarma on Friday 😏",
+    "recommendation_reorder": "Quick reorder", "others_ordered": "Others also ordered", "all_halal": "Our entire menu is halal 🌙"
+  },
+  "cart": {
+    "title": "Cart", "empty": "Your cart is empty", "empty_cta": "View menu", "subtotal": "Subtotal",
+    "delivery": "Delivery fee", "free_delivery": "Free", "tip": "Tip", "eco": "No plastic cutlery",
+    "eco_points": "+10 green points", "total": "Total", "points_earn": "You earn {points} points with this order",
+    "checkout": "Proceed to checkout", "add_drink": "Add a drink for €1.50 extra?",
+    "upsell": "{amount} away from free delivery", "split": "Split the bill", "coupon": "Enter coupon code",
+    "apply": "Apply", "remove": "Remove"
+  },
+  "checkout": {
+    "title": "Checkout", "delivery_method": "Delivery method", "pickup": "Pickup", "delivery": "Delivery",
+    "address": "Delivery address", "add_address": "Add new address", "contactless": "Contactless delivery",
+    "contactless_desc": "Leave at the door", "time": "When?", "asap": "As soon as possible (~25 min)",
+    "schedule": "Choose time", "payment": "Payment method", "ideal": "iDEAL", "card": "Credit card",
+    "giftcard": "Gift card", "note": "Notes for the kitchen (optional)", "place_order": "Place order",
+    "processing": "Processing payment...", "zone_check": "Check if your address is in our delivery zone"
+  },
+  "tracking": {
+    "title": "Your order", "received": "Received", "preparing": "Preparing", "ready": "Ready",
+    "on_the_way": "On the way", "delivered": "Delivered", "estimated": "Estimated time",
+    "chat": "Chat with restaurant", "review_cta": "How was your order?",
+    "review_google": "Leave a review on Google ⭐", "share": "Share your order"
+  },
+  "account": {
+    "title": "Account", "loyalty": "Loyalty", "points": "points", "level_bronze": "Bronze",
+    "level_silver": "Silver", "level_gold": "Gold", "stamp_card": "Stamp card", "stamp_free": "Free meal! 🎉",
+    "streak": "weeks in a row", "challenges": "Challenges", "badges": "Badges", "spin": "Spin the wheel",
+    "spin_available": "Available", "pass": "Mr. Mozaik Pass",
+    "pass_desc": "€9.99/mo — Always free delivery + 10% discount",
+    "orders": "Order history", "favorites": "Favorites", "addresses": "My addresses",
+    "dietary": "Dietary preferences", "language": "Language", "notifications": "Notifications",
+    "business": "Business account", "catering": "Request catering", "logout": "Log out", "reorder": "Reorder"
+  },
+  "onboarding": {
+    "step1_title": "Welcome to Mr. Mozaik!", "step1_desc": "Choose your language",
+    "step2_title": "Dietary preferences", "step2_desc": "Set your preferences",
+    "step3_title": "Your address", "step3_desc": "Find your delivery address",
+    "skip": "Skip", "next": "Next", "start": "Start ordering",
+    "vegetarian": "Vegetarian", "no_onion": "No onion", "no_coriander": "No coriander",
+    "no_nuts": "No nuts", "gluten_free": "Gluten-free", "lactose_free": "Lactose-free",
+    "all_halal": "Our entire menu is halal 🌙"
+  },
+  "admin": {
+    "title": "Admin Dashboard", "orders": "Orders", "menu": "Menu management", "analytics": "Analytics",
+    "team": "Team", "settings": "Settings", "accept": "Accept", "preparing": "In preparation",
+    "ready": "Ready", "on_the_way": "On the way", "pause": "Pause orders", "peak_mode": "Peak hour mode"
+  },
+  "common": {
+    "loading": "Loading...", "error": "Something went wrong", "retry": "Try again", "cancel": "Cancel",
+    "save": "Save", "delete": "Delete", "edit": "Edit", "close": "Close", "back": "Back",
+    "confirm": "Confirm", "search": "Search", "filter": "Filter", "offline": "No internet connection",
+    "offline_desc": "You are offline. Some features are not available."
+  }
+}

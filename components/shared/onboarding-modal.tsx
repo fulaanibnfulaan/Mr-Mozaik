@@ -11,15 +11,16 @@ const LANGUAGES = [
   { code: 'en' as Language, label: 'English', flag: '🇬🇧' },
   { code: 'tr' as Language, label: 'Türkçe', flag: '🇹🇷' },
   { code: 'ar' as Language, label: 'العربية', flag: '🇸🇦', rtl: true },
+  { code: 'de' as Language, label: 'Deutsch', flag: '🇩🇪' },
 ]
 
-const DIETARY: Array<{ key: keyof DietaryPreferences; nl: string; en: string; tr: string; ar: string; icon: string }> = [
-  { key: 'vegetarian', nl: 'Vegetarisch', en: 'Vegetarian', tr: 'Vejetaryen', ar: 'نباتي', icon: '🌿' },
-  { key: 'no_onion', nl: 'Geen ui', en: 'No onion', tr: 'Soğansız', ar: 'بدون بصل', icon: '🧅' },
-  { key: 'no_coriander', nl: 'Geen koriander', en: 'No coriander', tr: 'Kişnişsiz', ar: 'بدون كزبرة', icon: '🌱' },
-  { key: 'no_nuts', nl: 'Geen noten', en: 'No nuts', tr: 'Fındıksız', ar: 'بدون مكسرات', icon: '🥜' },
-  { key: 'gluten_free', nl: 'Glutenvrij', en: 'Gluten-free', tr: 'Glutensiz', ar: 'خالي من الجلوتين', icon: '🌾' },
-  { key: 'lactose_free', nl: 'Lactosevrij', en: 'Lactose-free', tr: 'Laktozsuz', ar: 'خالي من اللاكتوز', icon: '🥛' },
+const DIETARY: Array<{ key: keyof DietaryPreferences; nl: string; en: string; tr: string; ar: string; de: string; icon: string }> = [
+  { key: 'vegetarian',  nl: 'Vegetarisch',     en: 'Vegetarian',    tr: 'Vejetaryen',  ar: 'نباتي',            de: 'Vegetarisch',  icon: '🌿' },
+  { key: 'no_onion',    nl: 'Geen ui',          en: 'No onion',      tr: 'Soğansız',    ar: 'بدون بصل',         de: 'Ohne Zwiebeln', icon: '🧅' },
+  { key: 'no_coriander',nl: 'Geen koriander',   en: 'No coriander',  tr: 'Kişnişsiz',   ar: 'بدون كزبرة',       de: 'Ohne Koriander', icon: '🌱' },
+  { key: 'no_nuts',     nl: 'Geen noten',       en: 'No nuts',       tr: 'Fındıksız',   ar: 'بدون مكسرات',      de: 'Ohne Nüsse',   icon: '🥜' },
+  { key: 'gluten_free', nl: 'Glutenvrij',       en: 'Gluten-free',   tr: 'Glutensiz',   ar: 'خالي من الجلوتين', de: 'Glutenfrei',   icon: '🌾' },
+  { key: 'lactose_free',nl: 'Lactosevrij',      en: 'Lactose-free',  tr: 'Laktozsuz',   ar: 'خالي من اللاكتوز', de: 'Laktosefrei',  icon: '🥛' },
 ]
 
 export function OnboardingModal() {
@@ -45,8 +46,9 @@ export function OnboardingModal() {
     en: ['Next', 'Next', 'Start ordering'],
     tr: ['İleri', 'İleri', 'Sipariş ver'],
     ar: ['التالي', 'التالي', 'ابدأ الطلب'],
+    de: ['Weiter', 'Weiter', 'Jetzt bestellen'],
   }
-  const skipLabels: Record<Language, string> = { nl: 'Overslaan', en: 'Skip', tr: 'Atla', ar: 'تخطي' }
+  const skipLabels: Record<Language, string> = { nl: 'Overslaan', en: 'Skip', tr: 'Atla', ar: 'تخطي', de: 'Überspringen' }
 
   return (
     <div className="fixed inset-0 z-[100] bg-night pattern-bg flex flex-col" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -157,16 +159,16 @@ export function OnboardingModal() {
                   <MapPin className="w-7 h-7 text-ember" />
                 </div>
                 <h2 className="font-display font-bold text-cream text-2xl mb-2">
-                  {language === 'nl' ? 'Jouw adres' : language === 'en' ? 'Your address' : language === 'tr' ? 'Adresiniz' : 'عنوانك'}
+                  {language === 'nl' ? 'Jouw adres' : language === 'en' ? 'Your address' : language === 'tr' ? 'Adresiniz' : language === 'de' ? 'Deine Adresse' : 'عنوانك'}
                 </h2>
                 <p className="text-sand/50 text-sm mb-6">
-                  {language === 'nl' ? 'Sla je thuisadres op voor snelle bezorging' : language === 'en' ? 'Save your home address for fast delivery' : language === 'tr' ? 'Hızlı teslimat için ev adresinizi kaydedin' : 'احفظ عنوانك المنزلي'}
+                  {language === 'nl' ? 'Sla je thuisadres op voor snelle bezorging' : language === 'en' ? 'Save your home address for fast delivery' : language === 'tr' ? 'Hızlı teslimat için ev adresinizi kaydedin' : language === 'de' ? 'Speichere deine Adresse für schnelle Lieferung' : 'احفظ عنوانك المنزلي'}
                 </p>
                 <div className="w-full relative mb-4">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ember/50" />
                   <input
                     type="text"
-                    placeholder={language === 'nl' ? 'Typ je adres…' : language === 'en' ? 'Type your address…' : language === 'tr' ? 'Adresinizi yazın…' : 'اكتب عنوانك…'}
+                    placeholder={language === 'nl' ? 'Typ je adres…' : language === 'en' ? 'Type your address…' : language === 'tr' ? 'Adresinizi yazın…' : language === 'de' ? 'Adresse eingeben…' : 'اكتب عنوانك…'}
                     className="w-full pl-9 pr-4 py-3 bg-night-3 border border-gold/15 focus:border-ember/50 rounded-xl text-sm text-cream placeholder:text-sand/30 outline-none transition-colors"
                   />
                 </div>

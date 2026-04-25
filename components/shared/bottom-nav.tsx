@@ -14,14 +14,24 @@ const labels: Record<Language, { menu: string; cart: string; account: string }> 
   en: { menu: 'Menu', cart: 'Cart',       account: 'Account' },
   tr: { menu: 'Menü', cart: 'Sepet',      account: 'Hesap'   },
   ar: { menu: 'القائمة', cart: 'السلة',   account: 'الحساب'  },
+  de: { menu: 'Menü', cart: 'Warenkorb',  account: 'Konto'   },
 }
 
-const LANGS: { code: Language; label: string }[] = [
-  { code: 'nl', label: 'NL · Nederlands' },
-  { code: 'en', label: 'EN · English'    },
-  { code: 'tr', label: 'TR · Türkçe'     },
-  { code: 'ar', label: 'AR · العربية'    },
+const LANGS: { code: Language }[] = [
+  { code: 'nl' },
+  { code: 'en' },
+  { code: 'tr' },
+  { code: 'ar' },
+  { code: 'de' },
 ]
+
+const LANG_NAMES: Record<Language, Record<Language, string>> = {
+  nl: { nl: 'Nederlands', en: 'Engels',         tr: 'Turks',       ar: 'Arabisch',  de: 'Duits'          },
+  en: { nl: 'Dutch',      en: 'English',         tr: 'Turkish',     ar: 'Arabic',    de: 'German'         },
+  tr: { nl: 'Hollandaca', en: 'İngilizce',       tr: 'Türkçe',      ar: 'Arapça',    de: 'Almanca'        },
+  ar: { nl: 'الهولندية',  en: 'الإنجليزية',      tr: 'التركية',     ar: 'العربية',   de: 'الألمانية'      },
+  de: { nl: 'Niederländisch', en: 'Englisch',    tr: 'Türkisch',    ar: 'Arabisch',  de: 'Deutsch'        },
+}
 
 export function BottomNav() {
   const pathname  = usePathname()
@@ -54,17 +64,17 @@ export function BottomNav() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-              className="fixed bottom-16 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-2xl overflow-hidden"
+              className="fixed bottom-16 left-0 right-0 z-50 bg-[#F5F0E8] dark:bg-gray-800 rounded-t-2xl shadow-2xl overflow-hidden"
             >
               {LANGS.map(l => (
                 <button
                   key={l.code}
                   onClick={() => { setLanguage(l.code); setShowLang(false) }}
                   className={`w-full text-left px-6 py-4 text-sm font-semibold border-b border-black/5 last:border-0 transition-colors ${
-                    language === l.code ? 'text-red-600 bg-red-50' : 'text-gray-700'
+                    language === l.code ? 'text-red-600 bg-red-50 dark:bg-red-900/20' : 'text-gray-700 dark:text-gray-200'
                   }`}
                 >
-                  {l.label}
+                  {LANG_NAMES[language][l.code]}
                 </button>
               ))}
             </motion.div>
@@ -72,7 +82,7 @@ export function BottomNav() {
         )}
       </AnimatePresence>
 
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 safe-bottom bg-white border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.06)]">
+      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 safe-bottom bg-[#EAE5D6] dark:bg-gray-950 border-t border-black/5 dark:border-white/5 shadow-[0_-4px_24px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-around px-2 py-2">
           {tabs.map(tab => {
             const isActive = pathname === tab.href
@@ -86,7 +96,7 @@ export function BottomNav() {
                 {isActive && (
                   <motion.div
                     layoutId="navActive"
-                    className="absolute inset-0 bg-red-50 rounded-xl"
+                    className="absolute inset-0 bg-red-50 dark:bg-red-900/20 rounded-xl"
                     transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                   />
                 )}

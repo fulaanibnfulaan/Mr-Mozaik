@@ -12,7 +12,7 @@ interface CategoryTabsProps {
   language: Language
 }
 
-const allLabel: Record<Language, string> = { nl: 'Alles', en: 'All', tr: 'Hepsi', ar: 'الكل' }
+const allLabel: Record<Language, string> = { nl: 'Alles', en: 'All', tr: 'Hepsi', ar: 'الكل', de: 'Alle' }
 
 export function CategoryTabs({ categories, active, onSelect, language }: CategoryTabsProps) {
   return (

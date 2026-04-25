@@ -5,7 +5,7 @@ import { Gift, ShoppingBag, Heart, MapPin, Utensils, Globe, Bell, Building2, Che
 import { useAppStore } from '@/store/app'
 import type { Language } from '@/lib/types'
 
-const PROFILE = { name: 'Yilmaz Demir', stamp_count: 7 }
+const PROFILE = { name: 'Yilmaz Deniz', stamp_count: 7 }
 export default function AccountPage() {
   const { language } = useAppStore()
 
@@ -30,7 +30,7 @@ export default function AccountPage() {
         </svg>
         <div className="relative flex items-center gap-4">
           <div className="w-16 h-16 bg-ember/20 border border-ember/30 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span className="font-display font-bold text-cream text-2xl">{PROFILE.name.charAt(0)}</span>
+            <span className="font-display font-bold text-cream text-xl">{PROFILE.name.split(' ').map(w => w[0]).join('')}</span>
           </div>
           <div>
             <h1 className="font-display font-bold text-cream text-xl">{PROFILE.name}</h1>
@@ -41,15 +41,15 @@ export default function AccountPage() {
 
       <div className="px-4 -mt-12 space-y-3">
         {/* Stamp card */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="card-night p-4">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/5 rounded-2xl shadow-sm p-4">
           <div className="mb-3">
             <div className="flex justify-between items-baseline">
-              <h2 className="font-semibold text-cream text-sm">
+              <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
                 {language === 'nl' ? 'Stempelkaart' : language === 'en' ? 'Stamp card' : language === 'tr' ? 'Damga kartı' : 'بطاقة الطوابع'}
               </h2>
-              <span className="text-sand/40 text-xs">{PROFILE.stamp_count}/10</span>
+              <span className="text-gray-400 dark:text-gray-500 text-xs">{PROFILE.stamp_count}/10</span>
             </div>
-            <p className="text-sand/50 text-[11px] mt-1">
+            <p className="text-gray-400 dark:text-gray-500 text-[11px] mt-1">
               {language === 'nl'
                 ? 'Ontvang 1 stempel bij elke besteedde €10,-. Volle stempelkaart? Ontvang €10,- korting op de eerstvolgende bestelling!'
                 : language === 'en'
@@ -64,8 +64,8 @@ export default function AccountPage() {
               <motion.div key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.15 + i * 0.05 }}
                 className={`aspect-square rounded-2xl flex items-center justify-center text-base border overflow-hidden ${
                   i < PROFILE.stamp_count
-                    ? 'bg-ember/20 border-ember/40 shadow-ember'
-                    : 'bg-night-2 border-gold/10'
+                    ? 'bg-red-600/15 border-red-600/40'
+                    : 'bg-gray-200 dark:bg-gray-700 border-black/8 dark:border-white/5'
                 }`}>
                 {i < PROFILE.stamp_count ? <img src="/logo.png" alt="" className="w-full h-full object-contain" /> : null}
               </motion.div>
@@ -74,16 +74,16 @@ export default function AccountPage() {
         </motion.div>
 
         {/* Menu links */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }} className="card-night overflow-hidden">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }} className="bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/5 rounded-2xl shadow-sm overflow-hidden">
           {menuLinks.map((item, i) => (
-            <button key={i} className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-white/[0.03] transition-colors border-b border-gold/[0.07] last:border-0">
-              <div className="w-8 h-8 bg-night-2 rounded-xl flex items-center justify-center flex-shrink-0">
-                <item.icon className="w-3.5 h-3.5 text-sand/50" />
+            <button key={i} className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-colors border-b border-black/5 dark:border-white/5 last:border-0">
+              <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                <item.icon className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
               </div>
               <span className="text-sm font-medium text-gray-700 dark:text-gray-100 flex-1 text-left">
                 {item[language as keyof typeof item] as string}
               </span>
-              <ChevronRight className="w-3.5 h-3.5 text-sand/20" />
+              <ChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600" />
             </button>
           ))}
         </motion.div>

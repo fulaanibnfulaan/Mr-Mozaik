@@ -10,12 +10,14 @@ export function HeroSection({ language }: { language: Language }) {
     en: 'Fresh Turkish flavours, delivered to your door',
     tr: 'Taze Türk lezzetleri, kapınıza teslim',
     ar: 'نكهات تركية طازجة، تُوصل إلى بابك',
+    de: 'Frische türkische Aromen, direkt zu dir geliefert',
   }
   const promos: Record<Language, string> = {
     nl: '🎉 Gebruik MOZAIK10 voor 10% korting op je eerste bestelling!',
     en: '🎉 Use MOZAIK10 for 10% off your first order!',
     tr: '🎉 İlk siparişinizde %10 indirim için MOZAIK10 kullanın!',
     ar: '🎉 استخدم MOZAIK10 للحصول على خصم 10% على أول طلب!',
+    de: '🎉 Nutze MOZAIK10 für 10% Rabatt auf deine erste Bestellung!',
   }
 
   return (

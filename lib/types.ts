@@ -2,7 +2,7 @@ export type UserRole = 'klant' | 'bezorger' | 'medewerker' | 'admin'
 export type OrderStatus = 'ontvangen' | 'bereid' | 'klaar' | 'onderweg' | 'afgeleverd' | 'geannuleerd'
 export type OrderType = 'afhalen' | 'bezorgen'
 export type LoyaltyLevel = 'brons' | 'zilver' | 'goud'
-export type Language = 'nl' | 'en' | 'tr' | 'ar'
+export type Language = 'nl' | 'en' | 'tr' | 'ar' | 'de'
 export type PaymentMethod = 'ideal' | 'card' | 'cadeaukaart' | 'factuur'
 
 export interface Profile {
@@ -100,11 +100,41 @@ export interface Addon {
   active: boolean
 }
 
+export interface OptionValue {
+  id: string
+  name_nl: string
+  name_en: string
+  name_tr: string
+  name_ar: string
+  price: number
+}
+
+export interface OptionGroup {
+  id: string
+  name_nl: string
+  name_en: string
+  name_tr: string
+  name_ar: string
+  is_multi_select: boolean
+  values: OptionValue[]
+}
+
+export interface SelectedOption {
+  group_id: string
+  value_id: string
+  name_nl: string
+  name_en: string
+  name_tr: string
+  name_ar: string
+  price: number
+}
+
 export interface CartItem {
   id: string
   menu_item: MenuItem
   quantity: number
   selected_addons: Addon[]
+  selected_options: SelectedOption[]
   note?: string
 }
 

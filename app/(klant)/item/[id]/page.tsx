@@ -63,10 +63,10 @@ export default function ItemDetailPage() {
   }
 
   const allergenLabels: Record<string, Record<Language, string>> = {
-    gluten: { nl: 'Gluten', en: 'Gluten', tr: 'Gluten', ar: 'جلوتين' },
-    nuts: { nl: 'Noten', en: 'Nuts', tr: 'Fındık', ar: 'مكسرات' },
-    lactose: { nl: 'Lactose', en: 'Lactose', tr: 'Laktoz', ar: 'لاكتوز' },
-    eggs: { nl: 'Eieren', en: 'Eggs', tr: 'Yumurta', ar: 'بيض' },
+    gluten:  { nl: 'Gluten',   en: 'Gluten',   tr: 'Gluten',   ar: 'جلوتين',   de: 'Gluten'  },
+    nuts:    { nl: 'Noten',    en: 'Nuts',      tr: 'Fındık',   ar: 'مكسرات',   de: 'Nüsse'   },
+    lactose: { nl: 'Lactose',  en: 'Lactose',   tr: 'Laktoz',   ar: 'لاكتوز',   de: 'Laktose' },
+    eggs:    { nl: 'Eieren',   en: 'Eggs',      tr: 'Yumurta',  ar: 'بيض',      de: 'Eier'    },
   }
 
   return (

@@ -47,6 +47,15 @@ const translations: Record<Language, Record<string, string>> = {
     place_order: 'تأكيد الطلب', processing: 'جارٍ المعالجة...',
     subtotal: 'المجموع الفرعي', delivery_fee: 'رسوم التوصيل', tip: 'إكرامية', total: 'المجموع',
   },
+  de: {
+    title: 'Kasse', delivery: 'Lieferung', pickup: 'Abholung',
+    contactless: 'Kontaktlose Lieferung', contactless_desc: 'Vor die Tür stellen',
+    when: 'Wann?', asap: 'So schnell wie möglich (~25 Min.)', schedule: 'Zeit wählen',
+    payment: 'Zahlungsmethode', ideal: 'iDEAL', card: 'Kreditkarte', giftcard: 'Geschenkkarte',
+    note: 'Anmerkungen für die Küche (optional)',
+    place_order: 'Bestellung aufgeben', processing: 'Wird verarbeitet...',
+    subtotal: 'Zwischensumme', delivery_fee: 'Liefergebühr', tip: 'Trinkgeld', total: 'Gesamt',
+  },
 }
 
 const BANKS = ['ABN AMRO', 'ING', 'Rabobank', 'SNS Bank', 'ASN Bank', 'Bunq', 'Knab', 'Triodos Bank', 'Revolut', 'N26']
@@ -77,11 +86,11 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     if (orderType === 'bezorgen' && (!straat || !huisnummer || !postcode)) {
-      toast.error(language === 'nl' ? 'Vul je bezorgadres in' : 'Please enter your delivery address')
+      toast.error(language === 'nl' ? 'Vul je bezorgadres in' : language === 'de' ? 'Bitte Lieferadresse eingeben' : 'Please enter your delivery address')
       return
     }
     if (orderType === 'bezorgen' && !selectedBank && paymentMethod === 'ideal') {
-      toast.error(language === 'nl' ? 'Kies je bank' : 'Select your bank')
+      toast.error(language === 'nl' ? 'Kies je bank' : language === 'de' ? 'Bank auswählen' : 'Select your bank')
       return
     }
     setLoading(true)
@@ -93,23 +102,23 @@ export default function CheckoutPage() {
   return (
     <div dir={language === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
       {/* Header */}
-      <div className="sticky top-0 md:top-[65px] bg-[#EAE5D6]/95 backdrop-blur-xl border-b border-black/8 px-4 py-4 z-10 flex items-center gap-3">
-        <button onClick={() => router.back()} className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-black/8 shadow-sm">
-          <ArrowLeft className="w-5 h-5 text-gray-500" />
+      <div className="sticky top-0 md:top-[97px] bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center gap-3">
+        <button onClick={() => router.back()} className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
+          <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </button>
-        <h1 className="font-display font-bold text-xl text-gray-900">{tr.title}</h1>
+        <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">{tr.title}</h1>
       </div>
 
       <div className="px-4 md:px-8 pt-4 pb-36 space-y-3 max-w-2xl mx-auto md:max-w-3xl">
         {/* Delivery method */}
-        <Section title={language === 'nl' ? 'Bezorgmethode' : language === 'en' ? 'Delivery method' : language === 'tr' ? 'Teslimat yöntemi' : 'طريقة التوصيل'}>
+        <Section title={language === 'nl' ? 'Bezorgmethode' : language === 'en' ? 'Delivery method' : language === 'tr' ? 'Teslimat yöntemi' : language === 'de' ? 'Liefermethode' : 'طريقة التوصيل'}>
           <div className="flex gap-2">
             {(['bezorgen', 'afhalen'] as const).map(type => (
               <button key={type} onClick={() => setOrderType(type)}
                 className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all ${
                   orderType === type
                     ? 'bg-red-600 text-white shadow-[0_4px_12px_rgba(209,0,0,0.35)]'
-                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-600'
                 }`}>
                 {type === 'bezorgen' ? tr.delivery : tr.pickup}
               </button>
@@ -124,8 +133,8 @@ export default function CheckoutPage() {
                       <input
                         value={straat}
                         onChange={e => setStraat(e.target.value)}
-                        placeholder={language === 'nl' ? 'Straatnaam' : 'Street name'}
-                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                        placeholder={language === 'nl' ? 'Straatnaam' : language === 'de' ? 'Straßenname' : 'Street name'}
+                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
                       />
                     </div>
                     <div className="w-20">
@@ -133,7 +142,7 @@ export default function CheckoutPage() {
                         value={huisnummer}
                         onChange={e => setHuisnummer(e.target.value)}
                         placeholder="Nr."
-                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -143,26 +152,26 @@ export default function CheckoutPage() {
                         value={postcode}
                         onChange={e => setPostcode(e.target.value.toUpperCase())}
                         placeholder="Postcode"
-                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
                       />
                     </div>
                     <div className="flex-1">
                       <input
                         value={stad}
                         onChange={e => setStad(e.target.value)}
-                        placeholder={language === 'nl' ? 'Stad' : 'City'}
-                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                        placeholder={language === 'nl' ? 'Stad' : language === 'de' ? 'Stadt' : 'City'}
+                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
                       />
                     </div>
                   </div>
                 </div>
                 <button onClick={() => setContactless(!contactless)} className="flex items-center justify-between w-full px-1">
                   <div>
-                    <p className="text-sm font-medium text-gray-900 text-left">{tr.contactless}</p>
-                    <p className="text-xs text-gray-400">{tr.contactless_desc}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">{tr.contactless}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500">{tr.contactless_desc}</p>
                   </div>
-                  <div className={`w-10 h-5 rounded-full transition-colors ${contactless ? 'bg-red-600' : 'bg-gray-200'}`}>
-                    <div className={`w-4 h-4 bg-white rounded-full shadow-sm mt-0.5 transition-transform ${contactless ? 'translate-x-5' : 'translate-x-0.5'}`} />
+                  <div className={`w-10 h-5 rounded-full transition-colors ${contactless ? 'bg-red-600' : 'bg-gray-300 dark:bg-gray-600'}`}>
+                    <div className={`w-4 h-4 bg-white dark:bg-gray-200 rounded-full shadow-sm mt-0.5 transition-transform ${contactless ? 'translate-x-5' : 'translate-x-0.5'}`} />
                   </div>
                 </button>
               </motion.div>
@@ -176,14 +185,14 @@ export default function CheckoutPage() {
             {(['asap', 'schedule'] as const).map(option => (
               <button key={option} onClick={() => setTimeOption(option)}
                 className={`w-full flex items-center gap-3 p-3.5 rounded-xl border transition-all ${
-                  timeOption === option ? 'border-red-300 bg-red-50' : 'border-transparent bg-gray-100 hover:bg-gray-200'
+                  timeOption === option ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-transparent bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
                 }`}>
                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${timeOption === option ? 'border-red-600' : 'border-gray-300'}`}>
                   {timeOption === option && <div className="w-2.5 h-2.5 bg-red-600 rounded-full" />}
                 </div>
                 <div className="flex items-center gap-2 flex-1">
                   <Clock className={`w-4 h-4 ${timeOption === option ? 'text-red-600' : 'text-gray-400'}`} />
-                  <p className={`text-sm font-medium ${timeOption === option ? 'text-red-600' : 'text-gray-600'}`}>
+                  <p className={`text-sm font-medium ${timeOption === option ? 'text-red-600' : 'text-gray-600 dark:text-gray-300'}`}>
                     {option === 'asap' ? tr.asap : tr.schedule}
                   </p>
                 </div>
@@ -199,7 +208,7 @@ export default function CheckoutPage() {
               <div key={method}>
                 <button onClick={() => setPaymentMethod(method)}
                   className={`w-full flex items-center gap-3 p-3.5 rounded-xl border transition-all ${
-                    paymentMethod === method ? 'border-red-300 bg-red-50' : 'border-transparent bg-gray-100 hover:bg-gray-200'
+                    paymentMethod === method ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-transparent bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
                   }`}>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${paymentMethod === method ? 'border-red-600' : 'border-gray-300'}`}>
                     {paymentMethod === method && <div className="w-2.5 h-2.5 bg-red-600 rounded-full" />}
@@ -208,7 +217,7 @@ export default function CheckoutPage() {
                     {method === 'ideal' && <Smartphone className="w-5 h-5 text-blue-500" />}
                     {method === 'card' && <CreditCard className="w-5 h-5 text-gray-400" />}
                     {method === 'giftcard' && <Gift className="w-5 h-5 text-red-600" />}
-                    <span className={`text-sm font-medium ${paymentMethod === method ? 'text-red-600' : 'text-gray-600'}`}>{tr[method]}</span>
+                    <span className={`text-sm font-medium ${paymentMethod === method ? 'text-red-600' : 'text-gray-600 dark:text-gray-300'}`}>{tr[method]}</span>
                   </div>
                 </button>
                 <AnimatePresence>
@@ -216,19 +225,19 @@ export default function CheckoutPage() {
                     <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
                       <div className="mt-2 relative">
                         <button onClick={() => setShowBankDropdown(v => !v)}
-                          className="w-full flex items-center justify-between p-3 bg-gray-100 rounded-xl text-sm hover:bg-gray-200 transition-colors">
-                          <span className={selectedBank ? 'text-gray-900 font-medium' : 'text-gray-400'}>
-                            {selectedBank || (language === 'nl' ? 'Kies je bank' : 'Select your bank')}
+                          className="w-full flex items-center justify-between p-3 bg-gray-200 dark:bg-gray-700 rounded-xl text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                          <span className={selectedBank ? 'text-gray-900 dark:text-gray-100 font-medium' : 'text-gray-400 dark:text-gray-500'}>
+                            {selectedBank || (language === 'nl' ? 'Kies je bank' : language === 'de' ? 'Bank auswählen' : 'Select your bank')}
                           </span>
                           <ChevronDown className="w-4 h-4 text-gray-400" />
                         </button>
                         <AnimatePresence>
                           {showBankDropdown && (
                             <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                              className="absolute top-full left-0 right-0 mt-1 bg-white border border-black/8 rounded-xl shadow-lg overflow-hidden z-10">
+                              className="absolute top-full left-0 right-0 mt-1 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-10">
                               {BANKS.map(bank => (
                                 <button key={bank} onClick={() => { setSelectedBank(bank); setShowBankDropdown(false) }}
-                                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                   {bank}
                                 </button>
                               ))}
@@ -247,21 +256,21 @@ export default function CheckoutPage() {
         {/* Note */}
         <Section title={tr.note}>
           <textarea value={note} onChange={e => setNote(e.target.value)}
-            placeholder={language === 'nl' ? 'Bijv. extra pittig graag...' : 'E.g. extra spicy please...'}
+            placeholder={language === 'nl' ? 'Bijv. extra pittig graag...' : language === 'de' ? 'Z.B. extra scharf bitte...' : 'E.g. extra spicy please...'}
             rows={3}
-            className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none resize-none transition-colors" />
+            className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none resize-none transition-colors" />
         </Section>
 
         {/* Summary */}
-        <div className="bg-white rounded-2xl border border-black/8 shadow-sm p-4 space-y-2 text-sm">
+        <div className="bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl border border-black/8 dark:border-white/5 shadow-sm p-4 space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-400">{tr.subtotal}</span>
-            <span className="text-gray-600">{formatEuros(subtotal)}</span>
+            <span className="text-gray-600 dark:text-gray-300">{formatEuros(subtotal)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">{tr.delivery_fee}</span>
-            <span className={deliveryFee === 0 ? 'text-green-600 font-medium' : 'text-gray-600'}>
-              {deliveryFee === 0 ? (language === 'nl' ? 'Gratis' : 'Free') : formatEuros(deliveryFee)}
+            <span className={deliveryFee === 0 ? 'text-green-600 font-medium' : 'text-gray-600 dark:text-gray-300'}>
+              {deliveryFee === 0 ? (language === 'nl' ? 'Gratis' : language === 'de' ? 'Gratis' : 'Free') : formatEuros(deliveryFee)}
             </span>
           </div>
           {tip > 0 && (
@@ -272,20 +281,20 @@ export default function CheckoutPage() {
           )}
           {discount > 0 && (
             <div className="flex justify-between">
-              <span className="text-green-600">Korting</span>
+              <span className="text-green-600">{language === 'nl' ? 'Korting' : language === 'de' ? 'Rabatt' : 'Discount'}</span>
               <span className="text-green-600 font-medium">-{formatEuros(discount)}</span>
             </div>
           )}
           <div className="h-px bg-black/8 my-1" />
           <div className="flex justify-between font-bold text-base">
-            <span className="text-gray-900">{tr.total}</span>
-            <span className="text-gray-900">{formatEuros(total)}</span>
+            <span className="text-gray-900 dark:text-gray-100">{tr.total}</span>
+            <span className="text-gray-900 dark:text-gray-100">{formatEuros(total)}</span>
           </div>
         </div>
       </div>
 
       {/* Sticky order button */}
-      <div className="fixed bottom-0 left-0 right-0 px-4 py-4 bg-[#EAE5D6]/95 backdrop-blur-xl border-t border-black/8">
+      <div className="fixed bottom-0 left-0 right-0 px-4 py-4 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-black/8 dark:border-white/5">
         <div className="max-w-2xl mx-auto md:max-w-3xl">
           <motion.button onClick={handlePlaceOrder} whileTap={{ scale: 0.97 }} disabled={loading}
             className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 disabled:opacity-60 shadow-[0_4px_20px_rgba(209,0,0,0.4)]">
@@ -303,7 +312,7 @@ export default function CheckoutPage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl border border-black/8 shadow-sm p-4">
+    <div className="bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl border border-black/8 dark:border-white/5 shadow-sm p-4">
       <h2 className="font-semibold text-xs text-gray-400 uppercase tracking-wider mb-3">{title}</h2>
       {children}
     </div>

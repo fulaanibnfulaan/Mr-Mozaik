@@ -12,7 +12,7 @@ export default function WelcomePage() {
   const t = {
     nl: {
       welkom: 'Welkom bij Mr. Mozaik',
-      sub: 'Turks & mediterraans eten in Harderwijk. Zorgvuldig bereid, 100% halal — bezorgd aan de deur of klaar om af te halen.',
+      sub: 'Turks & mediterraans eten in Harderwijk. Zorgvuldig bereid en vol smaak. Bezorgd tot aan je deur of klaar om af te halen.',
       gast: 'Bestel als gast',
       account: 'Inloggen op je account',
       eigenaar: 'Ik ben de eigenaar',

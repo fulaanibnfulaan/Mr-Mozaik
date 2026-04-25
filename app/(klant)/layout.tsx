@@ -36,6 +36,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const { language, setLanguage, orderType, setOrderType, userMode } = useAppStore()
   const pathname = usePathname()
   const isStartPage = pathname === '/'
+  const hideStartBtn = pathname === '/' || pathname === '/winkelwagen'
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const [showCart, setShowCart] = useState(false)
@@ -70,11 +71,13 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen w-full bg-[#EAE5D6] dark:bg-gray-950">
       {/* Mobile top strip — hidden on desktop, hidden on start page */}
       <div className={`md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : ''}`}>
-        <Link href="/" className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
-          <ChevronLeft className="w-4 h-4" />
-          <span className="text-xs font-bold">Start</span>
-        </Link>
-        <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
+        {!hideStartBtn && (
+          <Link href="/" className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
+            <ChevronLeft className="w-4 h-4" />
+            <span className="text-xs font-bold">Start</span>
+          </Link>
+        )}
+        <div className={`flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5 ${hideStartBtn ? 'mx-auto' : ''}`}>
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button
               key={type}
@@ -95,10 +98,12 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
 
       {/* Desktop top nav — hidden on mobile, hidden on start page */}
       <nav className={`${isStartPage ? '!hidden' : 'hidden md:flex'} items-center justify-between px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm`}>
-        <Link href="/" className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
-          <ChevronLeft className="w-4 h-4" />
-          <span className="text-sm font-bold">Start</span>
-        </Link>
+        {!hideStartBtn ? (
+          <Link href="/" className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
+            <ChevronLeft className="w-4 h-4" />
+            <span className="text-sm font-bold">Start</span>
+          </Link>
+        ) : <div />}
         <div className="flex items-center gap-8">
           {/* Bezorgen / Afhalen toggle */}
           <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">

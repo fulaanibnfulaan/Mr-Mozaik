@@ -71,11 +71,6 @@ const translations: Record<Language, Record<string, string>> = {
   },
 }
 
-const BANKS = [
-  'ABN AMRO', 'ING', 'Rabobank', 'SNS Bank', 'ASN Bank', 'Bunq',
-  'Knab', 'Triodos Bank', 'RegioBank', 'Van Lanschot Kempen',
-  'Nationale-Nederlanden', 'Handelsbanken', 'Revolut', 'N26', 'Yoursafe',
-]
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -98,7 +93,6 @@ export default function CheckoutPage() {
   const [timeOption, setTimeOption] = useState<'asap' | 'schedule'>('asap')
   const [selectedTime, setSelectedTime] = useState<string>(availableSlots[0] ?? '')
   const [paymentMethod, setPaymentMethod] = useState<'ideal' | 'card' | 'giftcard'>('ideal')
-  const [selectedBank, setSelectedBank] = useState('')
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
   const [straat, setStraat] = useState('')
@@ -116,11 +110,7 @@ export default function CheckoutPage() {
       toast.error(language === 'nl' ? 'Vul je bezorgadres in' : language === 'de' ? 'Bitte Lieferadresse eingeben' : 'Please enter your delivery address')
       return
     }
-    if (orderType === 'bezorgen' && !selectedBank && paymentMethod === 'ideal') {
-      toast.error(language === 'nl' ? 'Kies je bank' : language === 'de' ? 'Bank auswählen' : 'Select your bank')
-      return
-    }
-    setLoading(true)
+setLoading(true)
     await new Promise(r => setTimeout(r, 1800))
     clearCart()
     router.push('/order/ord-demo-123')
@@ -235,15 +225,15 @@ export default function CheckoutPage() {
                       {language === 'nl' ? 'Geen tijdslots beschikbaar' : language === 'de' ? 'Keine Zeitfenster verfügbar' : language === 'tr' ? 'Müsait zaman yok' : language === 'ar' ? 'لا توجد أوقات متاحة' : 'No time slots available'}
                     </p>
                   ) : (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 pb-1">
                       {availableSlots.map(slot => (
                         <button
                           key={slot}
                           onClick={() => setSelectedTime(slot)}
-                          className={`px-3.5 py-2 rounded-xl text-sm font-bold transition-all ${
+                          className={`flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
                             selectedTime === slot
                               ? 'bg-red-600 text-white shadow-[0_4px_12px_rgba(209,0,0,0.35)]'
-                              : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                              : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
                           }`}
                         >
                           {slot}
@@ -276,27 +266,6 @@ export default function CheckoutPage() {
                     <span className={`text-sm font-medium ${paymentMethod === method ? 'text-red-600' : 'text-gray-600 dark:text-gray-300'}`}>{tr[method]}</span>
                   </div>
                 </button>
-                <AnimatePresence>
-                  {paymentMethod === 'ideal' && method === 'ideal' && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {BANKS.map(bank => (
-                          <button
-                            key={bank}
-                            onClick={() => setSelectedBank(bank)}
-                            className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
-                              selectedBank === bank
-                                ? 'bg-red-600 text-white shadow-[0_4px_12px_rgba(209,0,0,0.35)]'
-                                : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                            }`}
-                          >
-                            {bank}
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             ))}
           </div>

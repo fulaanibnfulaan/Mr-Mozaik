@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Toaster } from 'sonner'
-import { ShoppingBag, Sun, Moon, Globe, Bike, Store, ChevronRight } from 'lucide-react'
+import { ShoppingBag, Sun, Moon, Globe, Bike, Store, ChevronLeft, ChevronRight } from 'lucide-react'
 import { BottomNav } from '@/components/shared/bottom-nav'
 import { OfflineBanner } from '@/components/shared/offline-banner'
 import { StoreHydration } from '@/components/shared/store-hydration'
@@ -69,7 +69,11 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen w-full bg-[#EAE5D6] dark:bg-gray-950">
       {/* Mobile top strip — hidden on desktop, hidden on start page */}
-      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : ''}`}>
+      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : ''}`}>
+        <Link href="/" className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
+          <ChevronLeft className="w-4 h-4" />
+          <span className="text-xs font-bold">Start</span>
+        </Link>
         <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button
@@ -90,7 +94,11 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
       </div>
 
       {/* Desktop top nav — hidden on mobile, hidden on start page */}
-      <nav className={`${isStartPage ? '!hidden' : 'hidden md:flex'} items-center justify-end px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm`}>
+      <nav className={`${isStartPage ? '!hidden' : 'hidden md:flex'} items-center justify-between px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm`}>
+        <Link href="/" className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
+          <ChevronLeft className="w-4 h-4" />
+          <span className="text-sm font-bold">Start</span>
+        </Link>
         <div className="flex items-center gap-8">
           {/* Bezorgen / Afhalen toggle */}
           <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">

@@ -8,7 +8,20 @@ import { toast } from 'sonner'
 import { useCartStore } from '@/store/cart'
 import { useAppStore } from '@/store/app'
 import { formatEuros } from '@/lib/utils'
+import { seedOpeningHours } from '@/lib/seed-data'
 import type { Language } from '@/lib/types'
+
+function generateTimeSlots(openTime: string, closeTime: string): string[] {
+  const [oh, om] = openTime.split(':').map(Number)
+  const [ch, cm] = closeTime.split(':').map(Number)
+  const start = oh * 60 + om + 15
+  const end = ch * 60 + cm - 15
+  const slots: string[] = []
+  for (let m = start; m <= end; m += 15) {
+    slots.push(`${Math.floor(m / 60).toString().padStart(2, '0')}:${(m % 60).toString().padStart(2, '0')}`)
+  }
+  return slots
+}
 
 const translations: Record<Language, Record<string, string>> = {
   nl: {
@@ -66,9 +79,20 @@ export default function CheckoutPage() {
   const tr = translations[language]
   const { items, tip, getSubtotal, clearCart, couponDiscount } = useCartStore()
 
+  const todayHours = seedOpeningHours[new Date().getDay()]
+  const allSlots = todayHours && !todayHours.closed
+    ? generateTimeSlots(todayHours.open_time, todayHours.close_time)
+    : []
+  const nowMin = new Date().getHours() * 60 + new Date().getMinutes()
+  const availableSlots = allSlots.filter(s => {
+    const [h, m] = s.split(':').map(Number)
+    return h * 60 + m > nowMin
+  })
+
   const [orderType, setOrderType] = useState<'bezorgen' | 'afhalen'>('bezorgen')
   const [contactless, setContactless] = useState(false)
   const [timeOption, setTimeOption] = useState<'asap' | 'schedule'>('asap')
+  const [selectedTime, setSelectedTime] = useState<string>(availableSlots[0] ?? '')
   const [paymentMethod, setPaymentMethod] = useState<'ideal' | 'card' | 'giftcard'>('ideal')
   const [selectedBank, setSelectedBank] = useState('')
   const [note, setNote] = useState('')
@@ -199,6 +223,35 @@ export default function CheckoutPage() {
               </button>
             ))}
           </div>
+          <AnimatePresence>
+            {timeOption === 'schedule' && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                <div className="mt-3">
+                  {availableSlots.length === 0 ? (
+                    <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-2">
+                      {language === 'nl' ? 'Geen tijdslots beschikbaar' : language === 'de' ? 'Keine Zeitfenster verfügbar' : language === 'tr' ? 'Müsait zaman yok' : language === 'ar' ? 'لا توجد أوقات متاحة' : 'No time slots available'}
+                    </p>
+                  ) : (
+                    <div className="flex flex-wrap gap-2">
+                      {availableSlots.map(slot => (
+                        <button
+                          key={slot}
+                          onClick={() => setSelectedTime(slot)}
+                          className={`px-3.5 py-2 rounded-xl text-sm font-bold transition-all ${
+                            selectedTime === slot
+                              ? 'bg-red-600 text-white shadow-[0_4px_12px_rgba(209,0,0,0.35)]'
+                              : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                          }`}
+                        >
+                          {slot}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Section>
 
         {/* Payment */}

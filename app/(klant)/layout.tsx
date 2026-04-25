@@ -32,7 +32,7 @@ const LANG_NAMES: Record<Language, Record<Language, string>> = {
 export default function KlantLayout({ children }: { children: React.ReactNode }) {
   const { items, getItemCount, getSubtotal } = useCartStore()
   const itemCount = getItemCount()
-  const { language, setLanguage, orderType, setOrderType } = useAppStore()
+  const { language, setLanguage, orderType, setOrderType, userMode } = useAppStore()
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const [showCart, setShowCart] = useState(false)
@@ -148,7 +148,9 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
             )}
           </div>
 
-          <Link href="/account" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Account</Link>
+          {userMode !== 'guest' && (
+            <Link href="/account" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Account</Link>
+          )}
           <div
             ref={cartRef}
             className="relative"

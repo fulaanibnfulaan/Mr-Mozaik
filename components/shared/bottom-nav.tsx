@@ -36,14 +36,14 @@ const LANG_NAMES: Record<Language, Record<Language, string>> = {
 export function BottomNav() {
   const pathname  = usePathname()
   const itemCount = useCartStore(s => s.getItemCount())
-  const { language, setLanguage } = useAppStore()
+  const { language, setLanguage, userMode } = useAppStore()
   const t = labels[language]
   const [showLang, setShowLang] = useState(false)
 
   const tabs = [
-    { href: '/menu',         icon: Home,        label: t.menu    },
-    { href: '/winkelwagen', icon: ShoppingBag, label: t.cart,    badge: itemCount > 0 ? itemCount : undefined },
-    { href: '/account',     icon: User,        label: t.account },
+    { href: '/menu',        icon: Home,        label: t.menu },
+    { href: '/winkelwagen', icon: ShoppingBag, label: t.cart, badge: itemCount > 0 ? itemCount : undefined },
+    ...(userMode !== 'guest' ? [{ href: '/account', icon: User, label: t.account }] : []),
   ]
 
   return (

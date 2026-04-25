@@ -7,7 +7,7 @@ import { ChevronRight, User, Shield } from 'lucide-react'
 import { useAppStore } from '@/store/app'
 
 export default function WelcomePage() {
-  const { language } = useAppStore()
+  const { language, setUserMode } = useAppStore()
 
   const t = {
     nl: {
@@ -81,6 +81,7 @@ export default function WelcomePage() {
         <div className="w-full space-y-3">
           <Link
             href="/menu"
+            onClick={() => setUserMode('guest')}
             className="flex items-center justify-between w-full bg-red-600 text-white font-bold px-5 py-4 rounded-2xl shadow-[0_4px_20px_rgba(209,0,0,0.4)] hover:bg-red-700 transition-colors"
           >
             <span>{t.gast}</span>
@@ -89,6 +90,7 @@ export default function WelcomePage() {
 
           <Link
             href="/account"
+            onClick={() => setUserMode('account')}
             className="flex items-center justify-between w-full bg-[#F5F0E8] dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-bold px-5 py-4 rounded-2xl border border-black/8 dark:border-white/8 hover:bg-[#ede8da] dark:hover:bg-gray-700 transition-colors"
           >
             <div className="flex items-center gap-2.5">

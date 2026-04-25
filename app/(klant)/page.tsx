@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, User, Shield, X, Eye, EyeOff } from 'lucide-react'
+import { ChevronRight, User, UserPlus, Shield, X, Eye, EyeOff } from 'lucide-react'
 import { useAppStore } from '@/store/app'
 
 export default function WelcomePage() {
@@ -23,6 +23,7 @@ export default function WelcomePage() {
       sub: 'Turks & mediterraans eten in Harderwijk. Zorgvuldig bereid en vol smaak. Bezorgd tot aan je deur of klaar om af te halen.',
       gast: 'Bestel als gast',
       account: 'Inloggen',
+      register: 'Registreren',
       eigenaar: 'Ik ben de eigenaar',
       login_title: 'Inloggen',
       email: 'Gebruikersnaam of e-mailadres',
@@ -36,6 +37,7 @@ export default function WelcomePage() {
       sub: 'Turkish & Mediterranean food in Harderwijk. Carefully prepared, 100% halal — delivered to your door or ready to pick up.',
       gast: 'Order as guest',
       account: 'Log in',
+      register: 'Register',
       eigenaar: 'I am the owner',
       login_title: 'Log in',
       email: 'Username or email address',
@@ -49,6 +51,7 @@ export default function WelcomePage() {
       sub: 'Türkisches & mediterranes Essen in Harderwijk. Sorgfältig zubereitet, 100% halal — geliefert oder zur Abholung bereit.',
       gast: 'Als Gast bestellen',
       account: 'Anmelden',
+      register: 'Registrieren',
       eigenaar: 'Ich bin der Inhaber',
       login_title: 'Anmelden',
       email: 'Benutzername oder E-Mail',
@@ -62,6 +65,7 @@ export default function WelcomePage() {
       sub: "Harderwijk'te Türk ve Akdeniz mutfağı. Özenle hazırlanmış, %100 helal — kapınıza teslim veya gel-al.",
       gast: 'Misafir olarak sipariş ver',
       account: 'Giriş yap',
+      register: 'Kayıt ol',
       eigenaar: 'Ben sahibim',
       login_title: 'Giriş yap',
       email: 'Kullanıcı adı veya e-posta',
@@ -75,6 +79,7 @@ export default function WelcomePage() {
       sub: 'مطبخ تركي ومتوسطي في هاردرويك. محضر بعناية واهتمام، حلال 100% — توصيل إلى بابك أو استلام من المطعم.',
       gast: 'اطلب كضيف',
       account: 'تسجيل الدخول',
+      register: 'إنشاء حساب',
       eigenaar: 'أنا المالك',
       login_title: 'تسجيل الدخول',
       email: 'اسم المستخدم أو البريد الإلكتروني',
@@ -137,6 +142,17 @@ export default function WelcomePage() {
             </div>
             <ChevronRight className="w-5 h-5 text-gray-400" />
           </button>
+
+          <Link
+            href="/register"
+            className="flex items-center justify-between w-full bg-[#F5F0E8] dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-bold px-5 py-4 rounded-2xl border border-black/8 dark:border-white/8 hover:bg-[#ede8da] dark:hover:bg-gray-700 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <UserPlus className="w-4 h-4 text-red-600" />
+              <span>{t.register}</span>
+            </div>
+            <ChevronRight className="w-5 h-5 text-gray-400" />
+          </Link>
 
           <Link
             href="/admin"

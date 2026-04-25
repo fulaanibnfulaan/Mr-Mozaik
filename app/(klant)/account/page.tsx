@@ -29,12 +29,8 @@ export default function AccountPage() {
           <circle cx="100" cy="100" r="80" stroke="#C8102E" strokeWidth="0.5" fill="none" />
         </svg>
         <div className="relative flex items-center gap-4">
-          <div className="w-16 h-16 bg-ember/20 border border-ember/30 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span className="font-display font-bold text-cream text-xl">{PROFILE.name.split(' ').map(w => w[0]).join('')}</span>
-          </div>
           <div>
-            <h1 className="font-display font-bold text-cream text-xl">{PROFILE.name}</h1>
-            <span className="text-sand/60 text-sm">Member</span>
+            <h1 className="font-display font-bold text-gray-900 dark:text-gray-100 text-xl">{PROFILE.name}</h1>
           </div>
         </div>
       </div>
@@ -49,7 +45,7 @@ export default function AccountPage() {
               </h2>
               <span className="text-gray-400 dark:text-gray-500 text-xs">{PROFILE.stamp_count}/10</span>
             </div>
-            <p className="text-gray-400 dark:text-gray-500 text-[11px] mt-1">
+            <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
               {language === 'nl'
                 ? 'Ontvang 1 stempel bij elke besteedde €10,-. Volle stempelkaart? Ontvang €10,- korting op de eerstvolgende bestelling!'
                 : language === 'en'

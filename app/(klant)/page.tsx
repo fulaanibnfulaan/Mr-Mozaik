@@ -84,7 +84,7 @@ export default function WelcomePage() {
           </Link>
 
           <Link
-            href="/account"
+            href="/login"
             onClick={() => setUserMode('account')}
             className="flex items-center justify-between w-full bg-[#F5F0E8] dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-bold px-5 py-4 rounded-2xl border border-black/8 dark:border-white/8 hover:bg-[#ede8da] dark:hover:bg-gray-700 transition-colors"
           >

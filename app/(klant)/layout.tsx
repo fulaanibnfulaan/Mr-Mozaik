@@ -244,10 +244,10 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
       <div className="w-full">
         <StoreHydration />
         <OfflineBanner />
-        <main className={`${isStartPage ? 'pt-0' : 'pt-[49px]'} md:pt-0 pb-20 md:pb-0`}>
+        <main className={`${isStartPage ? 'pt-0' : 'pt-[49px]'} md:pt-0 ${isStartPage ? 'pb-0' : 'pb-20'} md:pb-0`}>
           {children}
         </main>
-        <BottomNav />
+        {!isStartPage && <BottomNav />}
       </div>
 
       <Toaster

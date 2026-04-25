@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Toaster } from 'sonner'
@@ -33,6 +34,8 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const { items, getItemCount, getSubtotal } = useCartStore()
   const itemCount = getItemCount()
   const { language, setLanguage, orderType, setOrderType, userMode } = useAppStore()
+  const pathname = usePathname()
+  const isStartPage = pathname === '/'
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const [showCart, setShowCart] = useState(false)
@@ -65,8 +68,8 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="min-h-screen w-full bg-[#EAE5D6] dark:bg-gray-950">
-      {/* Mobile top strip — hidden on desktop */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl">
+      {/* Mobile top strip — hidden on desktop, hidden on start page */}
+      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : ''}`}>
         <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button
@@ -86,8 +89,8 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      {/* Desktop top nav — hidden on mobile */}
-      <nav className="hidden md:flex items-center justify-end px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
+      {/* Desktop top nav — hidden on mobile, hidden on start page */}
+      <nav className={`${isStartPage ? '!hidden' : 'hidden md:flex'} items-center justify-end px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm`}>
         <div className="flex items-center gap-8">
           {/* Bezorgen / Afhalen toggle */}
           <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
@@ -241,7 +244,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
       <div className="w-full">
         <StoreHydration />
         <OfflineBanner />
-        <main className="pt-[49px] md:pt-0 pb-20 md:pb-0">
+        <main className={`${isStartPage ? 'pt-0' : 'pt-[49px]'} md:pt-0 pb-20 md:pb-0`}>
           {children}
         </main>
         <BottomNav />

@@ -65,6 +65,10 @@ export default function CheckoutPage() {
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
   const [showBankDropdown, setShowBankDropdown] = useState(false)
+  const [straat, setStraat] = useState('')
+  const [huisnummer, setHuisnummer] = useState('')
+  const [postcode, setPostcode] = useState('')
+  const [stad, setStad] = useState('Harderwijk')
 
   const subtotal = getSubtotal()
   const deliveryFee = orderType === 'afhalen' ? 0 : (subtotal >= 25 ? 0 : 2)
@@ -72,6 +76,10 @@ export default function CheckoutPage() {
   const total = subtotal + deliveryFee + tip - discount
 
   const handlePlaceOrder = async () => {
+    if (orderType === 'bezorgen' && (!straat || !huisnummer || !postcode)) {
+      toast.error(language === 'nl' ? 'Vul je bezorgadres in' : 'Please enter your delivery address')
+      return
+    }
     if (orderType === 'bezorgen' && !selectedBank && paymentMethod === 'ideal') {
       toast.error(language === 'nl' ? 'Kies je bank' : 'Select your bank')
       return
@@ -85,7 +93,7 @@ export default function CheckoutPage() {
   return (
     <div dir={language === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
       {/* Header */}
-      <div className="sticky top-0 md:top-[65px] bg-[#F4F4EF]/95 backdrop-blur-xl border-b border-black/8 px-4 py-4 z-10 flex items-center gap-3">
+      <div className="sticky top-0 md:top-[65px] bg-[#EAE5D6]/95 backdrop-blur-xl border-b border-black/8 px-4 py-4 z-10 flex items-center gap-3">
         <button onClick={() => router.back()} className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-black/8 shadow-sm">
           <ArrowLeft className="w-5 h-5 text-gray-500" />
         </button>
@@ -110,14 +118,44 @@ export default function CheckoutPage() {
           <AnimatePresence>
             {orderType === 'bezorgen' && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden mt-3 space-y-3">
-                <button className="w-full flex items-center gap-3 p-3.5 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
-                  <MapPin className="w-5 h-5 text-red-600" />
-                  <div className="text-left">
-                    <p className="text-sm font-semibold text-gray-900">Kerkstraat 12</p>
-                    <p className="text-xs text-gray-400">3841 AB Harderwijk</p>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <input
+                        value={straat}
+                        onChange={e => setStraat(e.target.value)}
+                        placeholder={language === 'nl' ? 'Straatnaam' : 'Street name'}
+                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                      />
+                    </div>
+                    <div className="w-20">
+                      <input
+                        value={huisnummer}
+                        onChange={e => setHuisnummer(e.target.value)}
+                        placeholder="Nr."
+                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                      />
+                    </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-gray-400 ml-auto" />
-                </button>
+                  <div className="flex gap-2">
+                    <div className="w-28">
+                      <input
+                        value={postcode}
+                        onChange={e => setPostcode(e.target.value.toUpperCase())}
+                        placeholder="Postcode"
+                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <input
+                        value={stad}
+                        onChange={e => setStad(e.target.value)}
+                        placeholder={language === 'nl' ? 'Stad' : 'City'}
+                        className="w-full bg-gray-100 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <button onClick={() => setContactless(!contactless)} className="flex items-center justify-between w-full px-1">
                   <div>
                     <p className="text-sm font-medium text-gray-900 text-left">{tr.contactless}</p>
@@ -247,7 +285,7 @@ export default function CheckoutPage() {
       </div>
 
       {/* Sticky order button */}
-      <div className="fixed bottom-0 left-0 right-0 px-4 py-4 bg-[#F4F4EF]/95 backdrop-blur-xl border-t border-black/8">
+      <div className="fixed bottom-0 left-0 right-0 px-4 py-4 bg-[#EAE5D6]/95 backdrop-blur-xl border-t border-black/8">
         <div className="max-w-2xl mx-auto md:max-w-3xl">
           <motion.button onClick={handlePlaceOrder} whileTap={{ scale: 0.97 }} disabled={loading}
             className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 disabled:opacity-60 shadow-[0_4px_20px_rgba(209,0,0,0.4)]">

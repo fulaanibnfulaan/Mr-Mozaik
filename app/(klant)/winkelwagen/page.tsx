@@ -43,7 +43,7 @@ export default function WinkelwagenPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[80vh] px-6 text-center">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
-          <div className="w-20 h-20 bg-[#FEFDF8] border border-black/8 rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-sm">
+          <div className="w-20 h-20 bg-[#F5F0E8] border border-black/8 rounded-3xl flex items-center justify-center mx-auto mb-5 shadow-sm">
             <ShoppingBag className="w-9 h-9 text-gray-300" />
           </div>
           <h2 className="font-display font-bold text-gray-900 text-2xl mb-2">
@@ -74,7 +74,7 @@ export default function WinkelwagenPage() {
       <div className="px-4 md:px-8 space-y-3 max-w-2xl mx-auto md:max-w-3xl">
         {/* Free delivery bar */}
         {toFree > 0 && (
-          <div className="bg-[#FEFDF8] rounded-2xl border border-black/8 shadow-sm p-3">
+          <div className="bg-[#F5F0E8] rounded-2xl border border-black/8 shadow-sm p-3">
             <p className="text-gray-500 text-xs mb-2">
               {language === 'nl' ? `Nog` : 'Only'} <span className="text-red-600 font-bold">{formatEuros(toFree)}</span>{' '}
               {language === 'nl' ? 'voor gratis bezorging' : 'for free delivery'}
@@ -89,7 +89,7 @@ export default function WinkelwagenPage() {
         <AnimatePresence>
           {items.map(ci => (
             <motion.div key={ci.id} layout initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20, height: 0 }}
-              className="bg-[#FEFDF8] rounded-2xl border border-black/8 shadow-sm p-3 flex gap-3">
+              className="bg-[#F5F0E8] rounded-2xl border border-black/8 shadow-sm p-3 flex gap-3">
               <div className="relative w-16 h-14 rounded-xl overflow-hidden flex-shrink-0">
                 <Image src={ci.menu_item.image_url} alt="" fill className="object-cover" />
               </div>
@@ -128,7 +128,7 @@ export default function WinkelwagenPage() {
 
         {/* Drink upsell */}
         {drinkSuggestion && (
-          <div className="bg-[#FEFDF8] rounded-2xl border border-black/8 shadow-sm p-3 flex items-center gap-3">
+          <div className="bg-[#F5F0E8] rounded-2xl border border-black/8 shadow-sm p-3 flex items-center gap-3">
             <p className="text-gray-500 text-xs flex-1">
               {language === 'nl' ? `Voeg een drankje toe voor` : 'Add a drink for'} <span className="text-red-600 font-bold">{formatEuros(drinkSuggestion.price)}</span>?
             </p>
@@ -142,7 +142,7 @@ export default function WinkelwagenPage() {
         )}
 
         {/* Tip */}
-        <div className="bg-[#FEFDF8] rounded-2xl border border-black/8 shadow-sm p-4">
+        <div className="bg-[#F5F0E8] rounded-2xl border border-black/8 shadow-sm p-4">
           <p className="text-gray-400 text-xs uppercase tracking-wide mb-3">
             {language === 'nl' ? 'Fooi toevoegen' : language === 'en' ? 'Add tip' : language === 'tr' ? 'Bahşiş' : 'إكرامية'}
           </p>
@@ -161,7 +161,7 @@ export default function WinkelwagenPage() {
         </div>
 
         {/* Coupon */}
-        <div className="bg-[#FEFDF8] rounded-2xl border border-black/8 shadow-sm p-4">
+        <div className="bg-[#F5F0E8] rounded-2xl border border-black/8 shadow-sm p-4">
           <button onClick={() => setShowCoupon(v => !v)} className="flex items-center gap-2 w-full text-sm font-medium text-gray-500">
             <Gift className="w-4 h-4 text-red-600" />
             <span>{language === 'nl' ? 'Couponcode' : language === 'en' ? 'Coupon code' : language === 'tr' ? 'Kupon kodu' : 'رمز الكوبون'}</span>
@@ -189,7 +189,7 @@ export default function WinkelwagenPage() {
         </div>
 
         {/* Summary */}
-        <div className="bg-[#FEFDF8] rounded-2xl border border-black/8 shadow-sm p-4 space-y-2 text-sm">
+        <div className="bg-[#F5F0E8] rounded-2xl border border-black/8 shadow-sm p-4 space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-400">{language === 'nl' ? 'Subtotaal' : 'Subtotal'}</span>
             <span className="text-gray-600">{formatEuros(subtotal)}</span>
@@ -221,7 +221,7 @@ export default function WinkelwagenPage() {
       </div>
 
       {/* Sticky checkout */}
-      <div className="fixed bottom-16 md:bottom-0 left-0 right-0 px-4 py-3 bg-[#F4F4EF]/95 backdrop-blur-xl border-t border-black/8">
+      <div className="fixed bottom-16 md:bottom-0 left-0 right-0 px-4 py-3 bg-[#EAE5D6]/95 backdrop-blur-xl border-t border-black/8">
         <div className="max-w-2xl mx-auto md:max-w-3xl">
           <motion.button onClick={() => router.push('/checkout')} whileTap={{ scale: 0.97 }}
             className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base shadow-[0_4px_20px_rgba(209,0,0,0.4)]">

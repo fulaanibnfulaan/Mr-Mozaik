@@ -38,35 +38,53 @@ export default function MenuPage() {
   const isOpen = isRestaurantOpen(todayHours)
   const todayIdx = new Date().getDay()
 
-  const heroItem = seedMenuItems.find(i => i.popular_count >= 342) ?? seedMenuItems[0]
 
   const visibleItems = activeCategory === 'all'
     ? seedMenuItems
     : seedMenuItems.filter(i => i.category_id === activeCategory)
 
   return (
-    <div className="min-h-screen" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+    <motion.div
+      className="min-h-screen"
+      dir={language === 'ar' ? 'rtl' : 'ltr'}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.25 }}
+    >
 
       {/* ── HERO ─────────────────────────────────── */}
-      <section className="relative h-[70vh] md:h-[60vh] overflow-hidden">
+      <section className="relative h-[55vh] md:h-[50vh] overflow-hidden">
         <Image
-          src={heroItem.image_url}
+          src="/hero.jpg"
           alt="Mr. Mozaik"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
           sizes="100vw"
         />
+        {/* Light mode gradient */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 dark:opacity-0 transition-opacity duration-300"
           style={{
             background: `linear-gradient(
               to bottom,
-              rgba(0,0,0,0.55) 0%,
-              rgba(0,0,0,0.08) 28%,
-              rgba(244,244,239,0) 46%,
-              rgba(244,244,239,0.88) 68%,
-              #F4F4EF 100%
+              rgba(0,0,0,0.08) 0%,
+              rgba(0,0,0,0.0) 40%,
+              rgba(244,244,239,0.6) 72%,
+              #EAE5D6 100%
+            )`,
+          }}
+        />
+        {/* Dark mode gradient */}
+        <div
+          className="absolute inset-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
+          style={{
+            background: `linear-gradient(
+              to bottom,
+              rgba(0,0,0,0.35) 0%,
+              rgba(0,0,0,0.1) 40%,
+              rgba(3,7,18,0.75) 72%,
+              #030712 100%
             )`,
           }}
         />
@@ -82,7 +100,7 @@ export default function MenuPage() {
             </span>
           </div>
 
-          <div className="flex bg-gray-100 rounded-2xl p-1 gap-1 max-w-xs">
+          <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl p-1 gap-1 max-w-xs">
             {(['bezorgen', 'afhalen'] as const).map(type => (
               <button
                 key={type}
@@ -90,7 +108,7 @@ export default function MenuPage() {
                 className={`flex-1 py-3.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                   orderType === type
                     ? 'bg-red-600 text-white shadow-[0_4px_16px_rgba(209,0,0,0.4)]'
-                    : 'text-gray-500 hover:text-gray-700'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                 }`}
               >
                 {type === 'bezorgen' ? <Bike className="w-4 h-4" /> : <Store className="w-4 h-4" />}
@@ -105,15 +123,20 @@ export default function MenuPage() {
       </section>
 
       {/* ── INFO STRIP ───────────────────────────── */}
-      <div className="border-b border-black/5 dark:border-white/5 bg-[#F4F4EF] dark:bg-gray-950">
+      <div className="border-b border-black/5 dark:border-white/5 bg-[#EAE5D6] dark:bg-gray-950">
         <div className="max-w-7xl mx-auto">
           {/* Social proof */}
           <div className="flex items-center justify-around md:justify-start md:gap-10 py-3.5 px-4 md:px-8">
-            <div className="flex items-center gap-1.5">
+            <a
+              href="https://www.google.com/maps/search/Mr.+Mozaik+Harderwijk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:opacity-70 transition-opacity"
+            >
               <Star className="w-4 h-4 text-red-600 fill-red-600" />
               <span className="font-black text-gray-900 dark:text-gray-100 text-sm">4.8</span>
               <span className="text-gray-400 dark:text-gray-500 text-xs">Google</span>
-            </div>
+            </a>
             <div className="w-px h-4 bg-gray-200 dark:bg-gray-700" />
             <div className="flex items-center gap-1.5">
               <Leaf className="w-3.5 h-3.5 text-green-600" />
@@ -178,7 +201,12 @@ export default function MenuPage() {
                 <p className="text-xs font-bold text-gray-900 dark:text-gray-100">0341 - 78 66 27</p>
               </div>
             </a>
-            <div className="flex items-center gap-2.5 px-4 md:px-8 py-3.5">
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=Deventerweg+12,+3843+GD+Harderwijk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-4 md:px-8 py-3.5 active:bg-black/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            >
               <div className="w-8 h-8 bg-red-50 dark:bg-red-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                 <MapPin className="w-4 h-4 text-red-600" />
               </div>
@@ -186,9 +214,9 @@ export default function MenuPage() {
                 <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
                   {language === 'nl' ? 'Adres' : 'Address'}
                 </p>
-                <p className="text-xs font-bold text-gray-900 dark:text-gray-100">Stationsplein 5</p>
+                <p className="text-xs font-bold text-gray-900 dark:text-gray-100">Deventerweg 12, 3843 GD</p>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* Bezorg/Afhaal banner */}
@@ -204,12 +232,12 @@ export default function MenuPage() {
             </div>
           )}
           {orderType === 'afhalen' && (
-            <div className="flex items-center gap-3 px-5 md:px-8 py-3 bg-gray-900 text-white">
+            <div className="flex items-center gap-3 px-5 md:px-8 py-3 bg-red-600 text-white">
               <Store className="w-4 h-4 flex-shrink-0" />
               <p className="text-xs font-semibold flex-1">
                 {language === 'nl'
-                  ? 'Afhalen aan de balie · Stationsplein 5 · Geen bezorgkosten'
-                  : 'Pickup at the counter · Stationsplein 5 · No delivery fee'}
+                  ? 'Afhalen aan de balie · Geen bezorgkosten'
+                  : 'Pickup at the counter · No delivery fee'}
               </p>
             </div>
           )}
@@ -217,7 +245,7 @@ export default function MenuPage() {
       </div>
 
       {/* ── CATEGORIE TABS — sticky ──────────────── */}
-      <div className="sticky top-0 md:top-[65px] z-40 border-b border-black/5 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] bg-[#F4F4EF] dark:bg-gray-950">
+      <div className="sticky top-0 md:top-[65px] z-40 border-b border-black/5 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] bg-[#EAE5D6] dark:bg-gray-950">
         <div className="max-w-7xl mx-auto flex overflow-x-auto no-scrollbar">
           <CategoryTab
             label={language === 'nl' ? 'Alles' : language === 'en' ? 'All' : language === 'tr' ? 'Hepsi' : 'الكل'}
@@ -260,9 +288,9 @@ export default function MenuPage() {
                       {catItems.map((item, i) => (
                         <motion.div
                           key={item.id}
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.03 }}
+                          initial={{ opacity: 0, x: -16 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.04, duration: 0.22 }}
                         >
                           <MenuCard item={item} language={language} />
                         </motion.div>
@@ -276,9 +304,9 @@ export default function MenuPage() {
                 {visibleItems.map((item, i) => (
                   <motion.div
                     key={item.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.03 }}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, duration: 0.22 }}
                   >
                     <MenuCard item={item} language={language} />
                   </motion.div>
@@ -294,12 +322,12 @@ export default function MenuPage() {
             <span className="font-display font-bold text-white text-2xl leading-none">M</span>
           </div>
           <p className="font-display font-bold text-gray-900 dark:text-gray-100 text-lg">Mr. Mozaik</p>
-          <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">Stationsplein 5 · 3841 AB Harderwijk</p>
+          <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">Deventerweg 12 · 3843 GD Harderwijk</p>
           <a href="tel:0341786627" className="text-red-600 font-bold text-sm mt-1 block">0341 - 78 66 27</a>
           <p className="text-gray-300 dark:text-gray-600 text-[10px] mt-4">© 2026 Mr. Mozaik · Alle rechten voorbehouden</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

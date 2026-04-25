@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Clock } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { useCartStore } from '@/store/cart'
 import { hapticFeedback, formatEuros } from '@/lib/utils'
 import type { Language } from '@/lib/types'
@@ -32,37 +32,14 @@ export function MenuCard({ item, language }: { item: MenuItem; language: Languag
     <Link href={`/item/${item.id}`} className="block px-4 md:px-8 pb-2.5">
       <motion.div
         whileTap={{ scale: 0.985 }}
-        className={`bg-white dark:bg-gray-800 rounded-2xl border border-black/5 dark:border-white/5 shadow-sm p-4 flex items-center justify-between gap-4 ${item.sold_out ? 'opacity-50' : ''}`}
+        className={`bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl border border-black/5 dark:border-white/5 shadow-sm p-4 flex items-center justify-between gap-4 ${item.sold_out ? 'opacity-50' : ''}`}
       >
         <div className="flex-1 min-w-0">
-          {/* Badges */}
-          <div className="flex items-center gap-1.5 mb-1.5">
-            {item.popular_count > 300 && !item.sold_out && (
-              <span className="text-[9px] font-black text-red-600 bg-red-50 px-1.5 py-0.5 rounded-full uppercase tracking-wide">
-                Bestseller
-              </span>
-            )}
-            {item.seasonal && !item.sold_out && (
-              <span className="text-[9px] font-black text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full uppercase tracking-wide">
-                Seizoen
-              </span>
-            )}
-            {item.sold_out && (
-              <span className="text-[9px] font-black text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded-full uppercase tracking-wide">
-                Uitverkocht
-              </span>
-            )}
-          </div>
-
           <h3 className="font-bold text-gray-900 dark:text-gray-100 text-[15px] leading-snug mb-1">{name}</h3>
           <p className="text-gray-400 dark:text-gray-500 text-xs line-clamp-2 leading-relaxed">{desc}</p>
 
           <div className="flex items-center gap-3 mt-2.5">
             <span className="font-black text-red-600 text-sm">{formatEuros(item.price)}</span>
-            <div className="flex items-center gap-1 text-gray-300 text-[10px]">
-              <Clock className="w-2.5 h-2.5" />
-              <span>{item.preparation_time} min</span>
-            </div>
           </div>
         </div>
 

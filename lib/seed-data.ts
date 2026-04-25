@@ -2690,13 +2690,13 @@ import type { Addon } from './types'
 export const seedAddons: Addon[] = []
 
 export const seedOpeningHours = [
-  { id: 'oh-0', day_of_week: 0, open_time: '16:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
-  { id: 'oh-1', day_of_week: 1, open_time: '16:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
-  { id: 'oh-2', day_of_week: 2, open_time: '16:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
-  { id: 'oh-3', day_of_week: 3, open_time: '16:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
-  { id: 'oh-4', day_of_week: 4, open_time: '16:00', close_time: '22:30', delivery_start: '16:30', delivery_end: '22:00', closed: false },
-  { id: 'oh-5', day_of_week: 5, open_time: '14:00', close_time: '23:00', delivery_start: '14:30', delivery_end: '22:30', closed: false },
-  { id: 'oh-6', day_of_week: 6, open_time: '14:00', close_time: '22:30', delivery_start: '14:30', delivery_end: '22:00', closed: false },
+  { id: 'oh-0', day_of_week: 0, open_time: '11:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
+  { id: 'oh-1', day_of_week: 1, open_time: '11:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: true  },
+  { id: 'oh-2', day_of_week: 2, open_time: '11:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
+  { id: 'oh-3', day_of_week: 3, open_time: '11:00', close_time: '22:00', delivery_start: '16:30', delivery_end: '21:30', closed: false },
+  { id: 'oh-4', day_of_week: 4, open_time: '11:00', close_time: '22:30', delivery_start: '16:30', delivery_end: '22:00', closed: false },
+  { id: 'oh-5', day_of_week: 5, open_time: '11:00', close_time: '23:00', delivery_start: '14:30', delivery_end: '22:30', closed: false },
+  { id: 'oh-6', day_of_week: 6, open_time: '11:00', close_time: '22:30', delivery_start: '14:30', delivery_end: '22:00', closed: false },
 ]
 
 export const seedCoupons = [

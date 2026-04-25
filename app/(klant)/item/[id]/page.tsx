@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Minus, Plus, Heart, Clock, Leaf, ChevronDown, ChevronUp, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, Minus, Plus, Heart, Leaf, ChevronDown, ChevronUp, ShoppingBag } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCartStore } from '@/store/cart'
 import { useAppStore } from '@/store/app'
@@ -96,7 +96,7 @@ export default function ItemDetailPage() {
         <div className="absolute bottom-4 left-4 flex gap-2">
           {item.popular_count > 300 && (
             <span className="bg-ember text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow-ember">
-              🔥 {language === 'nl' ? 'Bestseller' : 'Bestseller'}
+              {language === 'nl' ? 'Bestseller' : 'Bestseller'}
             </span>
           )}
           {item.vegetarian && (
@@ -115,12 +115,6 @@ export default function ItemDetailPage() {
           <span className="font-bold text-2xl text-ember flex-shrink-0">{formatEuros(item.price)}</span>
         </div>
 
-        <div className="flex items-center gap-3 mb-4">
-          <div className="flex items-center gap-1 text-sand/50 text-sm">
-            <Clock className="w-3.5 h-3.5" />
-            <span>{item.preparation_time} {language === 'ar' ? 'دقيقة' : 'min'}</span>
-          </div>
-        </div>
 
         <p className="text-sand/60 text-sm leading-relaxed mb-6">{desc}</p>
 

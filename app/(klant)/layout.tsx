@@ -66,8 +66,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen w-full bg-[#EAE5D6] dark:bg-gray-950">
       {/* Mobile top strip — hidden on desktop */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl">
-        <span className="font-display font-bold text-gray-900 dark:text-gray-100 text-base">Mr. Mozaik</span>
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl">
         <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button

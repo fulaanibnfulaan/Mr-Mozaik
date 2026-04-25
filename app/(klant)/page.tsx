@@ -137,36 +137,36 @@ export default function MenuPage() {
         <div className="max-w-7xl mx-auto">
 
           {/* Compacte info rij */}
-          <div className="flex items-center gap-4 px-4 md:px-8 py-3 border-black/5 dark:border-white/5 flex-wrap">
+          <div className="flex items-center gap-4 px-4 md:px-8 py-3 border-black/5 dark:border-white/5 overflow-x-auto no-scrollbar">
             <a href="https://www.google.com/maps/search/Mr.+Mozaik+Harderwijk" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:opacity-70 transition-opacity">
+              className="flex items-center gap-1 hover:opacity-70 transition-opacity flex-shrink-0">
               <Star className="w-3.5 h-3.5 text-red-600 fill-red-600" />
               <span className="font-black text-gray-900 dark:text-gray-100 text-xs">4.8</span>
               <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">Google</span>
             </a>
-            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700" />
-            <div className="flex items-center gap-1">
+            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
+            <div className="flex items-center gap-1 flex-shrink-0">
               <Drumstick className="w-3.5 h-3.5 text-red-600" />
               <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">100% Halal</span>
             </div>
-            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700" />
+            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
             {orderType === 'bezorgen' ? (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 flex-shrink-0">
                 <Bike className="w-3.5 h-3.5 text-red-600" />
                 <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">
                   {language === 'nl' ? 'Gratis v/a €25 · Min. €10' : language === 'de' ? 'Gratis ab €25 · Min. €10' : 'Free from €25 · Min. €10'}
                 </span>
               </div>
             ) : (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 flex-shrink-0">
                 <Store className="w-3.5 h-3.5 text-red-600" />
                 <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">
                   {language === 'nl' ? 'Geen bezorgkosten' : language === 'de' ? 'Keine Lieferkosten' : 'No delivery fee'}
                 </span>
               </div>
             )}
-            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700" />
-            <button onClick={() => setShowHours(v => !v)} className="flex items-center gap-1.5 hover:opacity-70 transition-opacity">
+            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
+            <button onClick={() => setShowHours(v => !v)} className="flex items-center gap-1.5 hover:opacity-70 transition-opacity flex-shrink-0">
               <Clock className="w-3.5 h-3.5 text-red-600" />
               <span className={`text-xs font-semibold ${isOpen ? 'text-gray-600 dark:text-gray-300' : 'text-gray-400 dark:text-gray-500'}`}>
                 {todayHours && !todayHours.closed
@@ -175,15 +175,15 @@ export default function MenuPage() {
               </span>
               <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${showHours ? 'rotate-180' : ''}`} />
             </button>
-            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700" />
-            <a href="tel:0341786627" className="flex items-center gap-1 hover:opacity-70 transition-opacity">
+            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
+            <a href="tel:0341786627" className="flex items-center gap-1 hover:opacity-70 transition-opacity flex-shrink-0">
               <Phone className="w-3.5 h-3.5 text-red-600" />
               <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">0341 - 78 66 27</span>
             </a>
-            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700" />
+            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700 hidden md:block" />
             <a href="https://www.google.com/maps/dir/?api=1&destination=Deventerweg+12,+3843+GD+Harderwijk"
               target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:opacity-70 transition-opacity">
+              className="hidden md:flex items-center gap-1 hover:opacity-70 transition-opacity flex-shrink-0">
               <MapPin className="w-3.5 h-3.5 text-red-600" />
               <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">Deventerweg 12, 3843 GD Harderwijk</span>
             </a>

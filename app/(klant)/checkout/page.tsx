@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, ChevronDown, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, CheckCircle2, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCartStore } from '@/store/cart'
 import { useAppStore } from '@/store/app'
@@ -101,7 +101,6 @@ export default function CheckoutPage() {
   const [selectedBank, setSelectedBank] = useState('')
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
-  const [showBankDropdown, setShowBankDropdown] = useState(false)
   const [straat, setStraat] = useState('')
   const [huisnummer, setHuisnummer] = useState('')
   const [postcode, setPostcode] = useState('')
@@ -279,28 +278,21 @@ export default function CheckoutPage() {
                 </button>
                 <AnimatePresence>
                   {paymentMethod === 'ideal' && method === 'ideal' && (
-                    <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
-                      <div className="mt-2 relative">
-                        <button onClick={() => setShowBankDropdown(v => !v)}
-                          className="w-full flex items-center justify-between p-3 bg-gray-200 dark:bg-gray-700 rounded-xl text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-                          <span className={selectedBank ? 'text-gray-900 dark:text-gray-100 font-medium' : 'text-gray-400 dark:text-gray-500'}>
-                            {selectedBank || (language === 'nl' ? 'Kies je bank' : language === 'de' ? 'Bank auswählen' : 'Select your bank')}
-                          </span>
-                          <ChevronDown className="w-4 h-4 text-gray-400" />
-                        </button>
-                        <AnimatePresence>
-                          {showBankDropdown && (
-                            <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                              className="absolute top-full left-0 right-0 mt-1 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-10">
-                              {BANKS.map(bank => (
-                                <button key={bank} onClick={() => { setSelectedBank(bank); setShowBankDropdown(false) }}
-                                  className="w-full text-left px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                                  {bank}
-                                </button>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {BANKS.map(bank => (
+                          <button
+                            key={bank}
+                            onClick={() => setSelectedBank(bank)}
+                            className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                              selectedBank === bank
+                                ? 'bg-red-600 text-white shadow-[0_4px_12px_rgba(209,0,0,0.35)]'
+                                : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                            }`}
+                          >
+                            {bank}
+                          </button>
+                        ))}
                       </div>
                     </motion.div>
                   )}

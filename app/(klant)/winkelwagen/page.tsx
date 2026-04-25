@@ -53,7 +53,7 @@ export default function WinkelwagenPage() {
           <p className="text-gray-400 text-sm mb-8">
             {language === 'nl' ? 'Voeg iets lekkers toe aan je bestelling' : language === 'de' ? 'Füge etwas Leckeres zu deiner Bestellung hinzu' : 'Add something delicious to your order'}
           </p>
-          <Link href="/" className="inline-flex items-center gap-2 bg-red-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-[0_4px_16px_rgba(209,0,0,0.35)]">
+          <Link href="/menu" className="inline-flex items-center gap-2 bg-red-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-[0_4px_16px_rgba(209,0,0,0.35)]">
             {language === 'nl' ? 'Bekijk menu' : language === 'en' ? 'View menu' : language === 'tr' ? 'Menüye bak' : language === 'de' ? 'Menü ansehen' : 'عرض القائمة'}
             <ChevronRight className="w-4 h-4" />
           </Link>

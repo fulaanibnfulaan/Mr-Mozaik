@@ -108,7 +108,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
             ))}
           </div>
 
-          <Link href="/" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Menu</Link>
+          <Link href="/menu" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Menu</Link>
 
           {/* Dark mode toggle */}
           <button

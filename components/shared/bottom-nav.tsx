@@ -41,7 +41,7 @@ export function BottomNav() {
   const [showLang, setShowLang] = useState(false)
 
   const tabs = [
-    { href: '/',            icon: Home,        label: t.menu    },
+    { href: '/menu',         icon: Home,        label: t.menu    },
     { href: '/winkelwagen', icon: ShoppingBag, label: t.cart,    badge: itemCount > 0 ? itemCount : undefined },
     { href: '/account',     icon: User,        label: t.account },
   ]

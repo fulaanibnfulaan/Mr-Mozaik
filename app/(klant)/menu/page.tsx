@@ -250,7 +250,6 @@ export default function MenuPage() {
 
         {/* Footer */}
         <div className="px-5 py-8 border-t border-black/5 dark:border-white/5 mt-4 text-center">
-          <Image src="/logo.png" alt="Mr. Mozaik" width={120} height={120} className="mx-auto mb-2 h-20 w-auto" />
           <p className="font-display font-bold text-gray-900 dark:text-gray-100 text-lg">Mr. Mozaik</p>
           <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">Deventerweg 12 · 3843 GD Harderwijk</p>
           <a href="tel:0341786627" className="text-red-600 font-bold text-sm mt-1 block">0341 - 78 66 27</a>

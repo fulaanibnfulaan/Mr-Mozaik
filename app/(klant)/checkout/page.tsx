@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, CheckCircle2, Loader2 } from 'lucide-react'
@@ -95,10 +95,60 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<'ideal' | 'card' | 'giftcard'>('ideal')
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
+  const [adresQuery, setAdresQuery] = useState('')
   const [straat, setStraat] = useState('')
   const [huisnummer, setHuisnummer] = useState('')
   const [postcode, setPostcode] = useState('')
-  const [stad, setStad] = useState('Harderwijk')
+  const [stad, setStad] = useState('')
+  const [suggestions, setSuggestions] = useState<{ id: string; label: string }[]>([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const suggestBoxRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (suggestBoxRef.current && !suggestBoxRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const handleAdresInput = (value: string) => {
+    setAdresQuery(value)
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    if (value.length < 2) { setSuggestions([]); setShowSuggestions(false); return }
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://api.pdok.nl/bzk/locatieserver/search/v3_1/suggest?q=${encodeURIComponent(value)}&fq=type:adres&rows=6`
+        )
+        const data = await res.json()
+        const docs: { id: string; weergavenaam: string }[] = data.response?.docs ?? []
+        setSuggestions(docs.map(d => ({ id: d.id, label: d.weergavenaam })))
+        setShowSuggestions(docs.length > 0)
+      } catch {}
+    }, 300)
+  }
+
+  const selectSuggestion = async (id: string, label: string) => {
+    setAdresQuery(label)
+    setShowSuggestions(false)
+    try {
+      const res = await fetch(
+        `https://api.pdok.nl/bzk/locatieserver/search/v3_1/lookup?id=${encodeURIComponent(id)}`
+      )
+      const data = await res.json()
+      const doc = data.response?.docs?.[0]
+      if (doc) {
+        setStraat(doc.straatnaam ?? '')
+        setHuisnummer(String(doc.huisnummer ?? ''))
+        setPostcode(doc.postcode ?? '')
+        setStad(doc.woonplaatsnaam ?? '')
+      }
+    } catch {}
+  }
 
   const subtotal = getSubtotal()
   const deliveryFee = orderType === 'afhalen' ? 0 : (subtotal >= 25 ? 0 : 2)
@@ -145,42 +195,82 @@ setLoading(true)
             {orderType === 'bezorgen' && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden mt-3 space-y-3">
                 <div className="space-y-2">
-                  <div className="flex gap-2">
-                    <div className="flex-1">
+                  {/* Address autocomplete */}
+                  <div className="relative" ref={suggestBoxRef}>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                       <input
-                        value={straat}
-                        onChange={e => setStraat(e.target.value)}
-                        placeholder={language === 'nl' ? 'Straatnaam' : language === 'de' ? 'Straßenname' : 'Street name'}
-                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
+                        value={adresQuery}
+                        onChange={e => handleAdresInput(e.target.value)}
+                        onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                        placeholder={language === 'nl' ? 'Zoek je adres...' : language === 'de' ? 'Adresse suchen...' : language === 'tr' ? 'Adres ara...' : language === 'ar' ? 'ابحث عن عنوانك...' : 'Search your address...'}
+                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl pl-9 pr-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
                       />
                     </div>
-                    <div className="w-20">
-                      <input
-                        value={huisnummer}
-                        onChange={e => setHuisnummer(e.target.value)}
-                        placeholder="Nr."
-                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
-                      />
-                    </div>
+                    <AnimatePresence>
+                      {showSuggestions && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.12 }}
+                          className="absolute top-full left-0 right-0 mt-1 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-20"
+                        >
+                          {suggestions.map(s => (
+                            <button
+                              key={s.id}
+                              onMouseDown={() => selectSuggestion(s.id, s.label)}
+                              className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 border-b border-black/5 dark:border-white/5 last:border-0 transition-colors"
+                            >
+                              {s.label}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <div className="flex gap-2">
-                    <div className="w-28">
-                      <input
-                        value={postcode}
-                        onChange={e => setPostcode(e.target.value.toUpperCase())}
-                        placeholder="Postcode"
-                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <input
-                        value={stad}
-                        onChange={e => setStad(e.target.value)}
-                        placeholder={language === 'nl' ? 'Stad' : language === 'de' ? 'Stadt' : 'City'}
-                        className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none transition-colors"
-                      />
-                    </div>
-                  </div>
+
+                  {/* Manual fields — filled automatically after selecting, still editable */}
+                  {(straat || huisnummer || postcode || stad) && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-2 overflow-hidden">
+                      <div className="flex gap-2">
+                        <div className="flex-1">
+                          <input
+                            value={straat}
+                            onChange={e => setStraat(e.target.value)}
+                            placeholder={language === 'nl' ? 'Straatnaam' : language === 'de' ? 'Straßenname' : 'Street name'}
+                            className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 outline-none transition-colors"
+                          />
+                        </div>
+                        <div className="w-20">
+                          <input
+                            value={huisnummer}
+                            onChange={e => setHuisnummer(e.target.value)}
+                            placeholder="Nr."
+                            className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 outline-none transition-colors"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <div className="w-28">
+                          <input
+                            value={postcode}
+                            onChange={e => setPostcode(e.target.value.toUpperCase())}
+                            placeholder="Postcode"
+                            className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 outline-none transition-colors"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <input
+                            value={stad}
+                            onChange={e => setStad(e.target.value)}
+                            placeholder={language === 'nl' ? 'Stad' : language === 'de' ? 'Stadt' : 'City'}
+                            className="w-full bg-gray-200 dark:bg-gray-700 border border-transparent focus:border-red-300 rounded-xl px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 outline-none transition-colors"
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
                 <button onClick={() => setContactless(!contactless)} className="flex items-center justify-between w-full px-1">
                   <div>

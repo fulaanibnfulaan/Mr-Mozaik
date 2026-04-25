@@ -64,11 +64,6 @@ export default function WelcomePage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
       >
-        {/* Logo */}
-        <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.1, duration: 0.3 }}>
-          <Image src="/logo.png" alt="Mr. Mozaik" width={100} height={100} className="h-24 w-auto mb-6 drop-shadow-md" />
-        </motion.div>
-
         {/* Title */}
         <h1 className="font-display font-bold text-3xl text-gray-900 dark:text-gray-100 leading-tight mb-3">
           {t.welkom}

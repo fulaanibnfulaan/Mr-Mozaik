@@ -105,15 +105,7 @@ export default function MenuPage() {
             background: `linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, rgba(3,7,18,0.75) 72%, #030712 100%)`,
           }}
         />
-        {/* Back button */}
-        <Link
-          href="/"
-          className="absolute top-[62px] md:top-4 left-4 md:left-8 flex items-center gap-1.5 bg-black/30 hover:bg-black/45 backdrop-blur-sm text-white text-xs font-bold px-3 py-2 rounded-xl transition-colors"
-        >
-          <ChevronLeft className="w-3.5 h-3.5" />
-          {language === 'nl' ? 'Start' : language === 'de' ? 'Start' : language === 'tr' ? 'Başlangıç' : language === 'ar' ? 'البداية' : 'Start'}
-        </Link>
-        <div className="absolute bottom-0 left-0 right-0 px-5 md:px-12 pb-7 md:max-w-4xl">
+<div className="absolute bottom-0 left-0 right-0 px-5 md:px-12 pb-7 md:max-w-4xl">
           <h1 className="font-display font-bold text-4xl md:text-5xl text-gray-900 dark:text-white leading-none drop-shadow-sm">
             Mr. Mozaik
           </h1>
@@ -124,6 +116,11 @@ export default function MenuPage() {
       <div className="border-b border-black/5 dark:border-white/5 bg-[#EAE5D6] dark:bg-gray-950">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 px-4 md:px-8 py-3 border-black/5 dark:border-white/5 overflow-x-auto no-scrollbar">
+            <Link href="/" className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors flex-shrink-0">
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span className="text-xs font-bold">Start</span>
+            </Link>
+            <div className="w-px h-3.5 bg-gray-200 dark:bg-gray-700 flex-shrink-0" />
             <a href="https://www.google.com/maps/search/Mr.+Mozaik+Harderwijk" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1 hover:opacity-70 transition-opacity flex-shrink-0">
               <Star className="w-3.5 h-3.5 text-red-600 fill-red-600" />

@@ -255,9 +255,12 @@ export default function WinkelwagenPage() {
 
       {/* Sticky checkout */}
       <div className="fixed bottom-16 md:bottom-0 left-0 right-0 px-4 py-3 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-black/8 dark:border-white/5">
-        <div className="max-w-2xl mx-auto md:max-w-3xl">
+        <div className="max-w-2xl mx-auto md:max-w-3xl flex gap-3">
+          <Link href="/menu" className="flex items-center justify-center font-bold px-5 py-4 rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 text-gray-900 dark:text-gray-100 hover:bg-[#ede8da] dark:hover:bg-gray-700 transition-colors flex-shrink-0">
+            {language === 'nl' ? 'Menu' : language === 'de' ? 'Menü' : language === 'tr' ? 'Menü' : language === 'ar' ? 'القائمة' : 'Menu'}
+          </Link>
           <motion.button onClick={() => router.push('/checkout')} whileTap={{ scale: 0.97 }}
-            className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base shadow-[0_4px_20px_rgba(209,0,0,0.4)]">
+            className="flex-1 bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base shadow-[0_4px_20px_rgba(209,0,0,0.4)]">
             <span className="text-sm bg-white/15 rounded-lg px-2 py-0.5">{getItemCount()} {getItemCount() === 1 ? 'item' : 'items'}</span>
             <span>{language === 'nl' ? 'Doorgaan naar afrekenen' : language === 'de' ? 'Weiter zur Kasse' : 'Proceed to checkout'}</span>
             <span>{formatEuros(total)}</span>

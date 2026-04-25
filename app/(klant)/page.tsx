@@ -20,7 +20,7 @@ export default function WelcomePage() {
   const t = {
     nl: {
       welkom: 'Welkom bij Mr. Mozaik',
-      sub: 'Turks & mediterraans eten in Harderwijk. Zorgvuldig bereid en vol smaak. Bezorgd tot aan je deur of klaar om af te halen.',
+      sub: 'Turks & mediterraans eten in Harderwijk. Zorgvuldig bereid en vol smaak. Bezorgd tot aan je deur of klaar om\naf te halen.',
       gast: 'Bestel als gast',
       account: 'Inloggen',
       register: 'Registreren',
@@ -118,7 +118,7 @@ export default function WelcomePage() {
         <h1 className="font-display font-bold text-3xl text-gray-900 dark:text-gray-100 leading-tight mb-3">
           {t.welkom}
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-10">
+        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-10 whitespace-pre-line">
           {t.sub}
         </p>
 

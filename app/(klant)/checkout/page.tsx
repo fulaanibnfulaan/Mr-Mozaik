@@ -71,7 +71,11 @@ const translations: Record<Language, Record<string, string>> = {
   },
 }
 
-const BANKS = ['ABN AMRO', 'ING', 'Rabobank', 'SNS Bank', 'ASN Bank', 'Bunq', 'Knab', 'Triodos Bank', 'Revolut', 'N26']
+const BANKS = [
+  'ABN AMRO', 'ING', 'Rabobank', 'SNS Bank', 'ASN Bank', 'Bunq',
+  'Knab', 'Triodos Bank', 'RegioBank', 'Van Lanschot Kempen',
+  'Nationale-Nederlanden', 'Handelsbanken', 'Revolut', 'N26', 'Yoursafe',
+]
 
 export default function CheckoutPage() {
   const router = useRouter()

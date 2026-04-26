@@ -191,7 +191,7 @@ export default function MenuPage() {
       </div>
 
       {/* ── CATEGORIE TABS — sticky ──────────────── */}
-      <div className="sticky top-[49px] md:top-[73px] z-40 border-b border-black/5 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] bg-[#EAE5D6] dark:bg-gray-950">
+      <div className="sticky top-[49px] md:top-[68px] z-40 border-b border-black/5 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] bg-[#EAE5D6] dark:bg-gray-950">
         <div className="relative max-w-7xl mx-auto">
           <div ref={tabsRef} onScroll={checkScroll} className="flex overflow-x-auto no-scrollbar">
             {seedCategories.map(cat => (

@@ -246,7 +246,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
             </button>
 
             <AnimatePresence>
-              {showCart && (
+              {(showCart || itemCount > 0) && (
                 <motion.div
                   initial={{ opacity: 0, y: 6, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}

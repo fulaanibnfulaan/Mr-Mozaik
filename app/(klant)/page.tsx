@@ -5,11 +5,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, User, UserPlus, Shield, X, Eye, EyeOff } from 'lucide-react'
+import { ChevronRight, User, UserPlus, Shield, X, Eye, EyeOff, Bike, Store } from 'lucide-react'
 import { useAppStore } from '@/store/app'
 
 export default function WelcomePage() {
-  const { language, setUserMode } = useAppStore()
+  const { language, setUserMode, orderType, setOrderType } = useAppStore()
   const router = useRouter()
   const [showLogin, setShowLogin] = useState(false)
   const [email, setEmail] = useState('')
@@ -118,9 +118,29 @@ export default function WelcomePage() {
         <h1 className="font-display font-bold text-3xl text-gray-900 dark:text-gray-100 leading-tight mb-3">
           {t.welkom}
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-10 whitespace-pre-line">
+        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 whitespace-pre-line">
           {t.sub}
         </p>
+
+        {/* Bezorgen / Afhalen toggle */}
+        <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl p-1 gap-1 w-full mb-6 border border-black/8 dark:border-white/8">
+          {(['bezorgen', 'afhalen'] as const).map(type => (
+            <button
+              key={type}
+              onClick={() => setOrderType(type)}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${
+                orderType === type
+                  ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'
+                  : 'text-gray-500 dark:text-gray-400'
+              }`}
+            >
+              {type === 'bezorgen' ? <Bike className="w-4 h-4" /> : <Store className="w-4 h-4" />}
+              {type === 'bezorgen'
+                ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
+                : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
+            </button>
+          ))}
+        </div>
 
         <div className="w-full space-y-3">
           <Link

@@ -127,7 +127,7 @@ export default function WelcomePage() {
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button
               key={type}
-              onClick={() => { setOrderType(type); setUserMode('guest'); router.push('/menu') }}
+              onClick={() => setOrderType(type)}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${
                 orderType === type
                   ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'

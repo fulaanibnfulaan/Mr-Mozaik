@@ -238,6 +238,17 @@ export default function WinkelwagenPage() {
             <span className="text-gray-900 dark:text-gray-100">{language === 'nl' ? 'Totaal' : language === 'de' ? 'Gesamt' : 'Total'}</span>
             <span className="text-gray-900 dark:text-gray-100">{formatEuros(total)}</span>
           </div>
+          {toFree > 0 && (
+            <div className="pt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1.5">
+                {language === 'nl' ? 'Nog' : language === 'de' ? 'Noch' : 'Only'} <span className="text-red-600 font-bold">{formatEuros(toFree)}</span>{' '}
+                {language === 'nl' ? 'voor gratis bezorging' : language === 'de' ? 'bis zur kostenlosen Lieferung' : 'for free delivery'}
+              </p>
+              <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <motion.div className="h-full bg-red-600 rounded-full" animate={{ width: `${Math.min((subtotal / DELIVERY_THRESHOLD) * 100, 100)}%` }} transition={{ duration: 0.5 }} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -262,17 +273,6 @@ export default function WinkelwagenPage() {
             <span>{language === 'nl' ? 'Doorgaan naar afrekenen' : language === 'de' ? 'Weiter zur Kasse' : 'Proceed to checkout'}</span>
             <span>{formatEuros(total)}</span>
           </motion.button>
-          {toFree > 0 && (
-            <div>
-              <p className="text-center text-xs text-gray-500 dark:text-gray-400 mb-1.5">
-                {language === 'nl' ? 'Nog' : language === 'de' ? 'Noch' : 'Only'} <span className="text-red-600 font-bold">{formatEuros(toFree)}</span>{' '}
-                {language === 'nl' ? 'voor gratis bezorging' : language === 'de' ? 'bis zur kostenlosen Lieferung' : 'for free delivery'}
-              </p>
-              <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <motion.div className="h-full bg-red-600 rounded-full" animate={{ width: `${Math.min((subtotal / DELIVERY_THRESHOLD) * 100, 100)}%` }} transition={{ duration: 0.5 }} />
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

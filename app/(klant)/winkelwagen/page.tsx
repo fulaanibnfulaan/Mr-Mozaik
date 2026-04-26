@@ -13,6 +13,7 @@ import { seedMenuItems } from '@/lib/seed-data'
 
 const DELIVERY_THRESHOLD = 25
 const DELIVERY_FEE = 2
+const MIN_ORDER = 10
 
 export default function WinkelwagenPage() {
   const router = useRouter()
@@ -255,10 +256,22 @@ export default function WinkelwagenPage() {
 
       {/* Sticky checkout */}
       <div className="fixed bottom-16 md:bottom-0 left-0 right-0 px-4 py-3 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-black/8 dark:border-white/5">
-        <div className="max-w-2xl mx-auto md:max-w-3xl">
-          <motion.button onClick={() => router.push('/checkout')} whileTap={{ scale: 0.97 }}
-            className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base shadow-[0_4px_20px_rgba(209,0,0,0.4)]">
-            <span className="text-sm bg-white/15 rounded-lg px-2 py-0.5">{getItemCount()} {getItemCount() === 1 ? 'item' : 'items'}</span>
+        <div className="max-w-2xl mx-auto md:max-w-3xl space-y-2">
+          {subtotal < MIN_ORDER && (
+            <p className="text-center text-xs font-semibold text-gray-500 dark:text-gray-400">
+              {language === 'nl' ? `Minimale bestelling is ${formatEuros(MIN_ORDER)} — nog ${formatEuros(MIN_ORDER - subtotal)} te gaan` : language === 'de' ? `Mindestbestellung ${formatEuros(MIN_ORDER)} — noch ${formatEuros(MIN_ORDER - subtotal)}` : `Minimum order is ${formatEuros(MIN_ORDER)} — ${formatEuros(MIN_ORDER - subtotal)} to go`}
+            </p>
+          )}
+          <motion.button
+            onClick={() => subtotal >= MIN_ORDER && router.push('/checkout')}
+            whileTap={subtotal >= MIN_ORDER ? { scale: 0.97 } : {}}
+            className={`w-full font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base transition-all ${
+              subtotal >= MIN_ORDER
+                ? 'bg-red-600 text-white shadow-[0_4px_20px_rgba(209,0,0,0.4)]'
+                : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            <span className={`text-sm rounded-lg px-2 py-0.5 ${subtotal >= MIN_ORDER ? 'bg-white/15' : 'bg-black/8 dark:bg-white/8'}`}>{getItemCount()} {getItemCount() === 1 ? 'item' : 'items'}</span>
             <span>{language === 'nl' ? 'Doorgaan naar afrekenen' : language === 'de' ? 'Weiter zur Kasse' : 'Proceed to checkout'}</span>
             <span>{formatEuros(total)}</span>
           </motion.button>

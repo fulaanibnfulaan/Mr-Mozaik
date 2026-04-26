@@ -71,7 +71,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen w-full bg-[#EAE5D6] dark:bg-gray-950">
       {/* Mobile top strip — hidden on desktop, hidden on start page */}
-      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : ''}`}>
+      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : 'flex'}`}>
         {!hideStartBtn && (
           <Link href="/" className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
             <ChevronLeft className="w-4 h-4" />

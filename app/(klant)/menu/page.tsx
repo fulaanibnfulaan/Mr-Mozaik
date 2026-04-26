@@ -230,7 +230,7 @@ export default function MenuPage() {
           if (catItems.length === 0) return null
           return (
             <div key={cat.id} id={`section-${cat.id}`} data-cat={cat.id}>
-              <div className="px-4 md:px-8 pt-2 pb-3">
+              <div className="px-4 md:px-8 pt-0 pb-2">
                 <h2 className="font-display font-bold text-2xl md:text-3xl text-gray-900 dark:text-gray-100">
                   {cat[`name_${language}` as keyof typeof cat] as string}
                 </h2>

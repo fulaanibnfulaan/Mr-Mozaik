@@ -168,14 +168,14 @@ setLoading(true)
   return (
     <div dir={language === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
       {/* Header */}
-      <div className="sticky top-0 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center gap-3">
+      <div className="fixed top-0 left-0 right-0 z-40 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 flex items-center gap-3">
         <button onClick={() => router.back()} className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
           <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </button>
         <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">{tr.title}</h1>
       </div>
 
-      <div className="px-4 md:px-8 pt-4 pb-36 space-y-3 max-w-2xl mx-auto md:max-w-3xl">
+      <div className="px-4 md:px-8 pt-[68px] pb-36 space-y-3 max-w-2xl mx-auto md:max-w-3xl">
         {/* Delivery method */}
         <Section title={language === 'nl' ? 'Bezorgmethode' : language === 'en' ? 'Delivery method' : language === 'tr' ? 'Teslimat yöntemi' : language === 'de' ? 'Liefermethode' : 'طريقة التوصيل'}>
           <div className="flex items-center gap-2 bg-red-600 text-white py-3 px-4 rounded-xl font-semibold text-sm">
@@ -393,7 +393,7 @@ setLoading(true)
       </div>
 
       {/* Sticky order button */}
-      <div className="fixed bottom-0 left-0 right-0 px-4 py-4 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-black/8 dark:border-white/5">
+      <div className="fixed bottom-0 left-0 right-0 z-40 px-4 py-4 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-black/8 dark:border-white/5">
         <div className="max-w-2xl mx-auto md:max-w-3xl">
           <motion.button onClick={handlePlaceOrder} whileTap={{ scale: 0.97 }} disabled={loading}
             className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 disabled:opacity-60 shadow-[0_4px_20px_rgba(209,0,0,0.4)]">

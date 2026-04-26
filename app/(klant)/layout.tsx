@@ -233,7 +233,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
         <main className={`${isStartPage || hideStrip ? 'pt-0' : 'pt-[49px]'} md:pt-0 ${isStartPage ? 'pb-0' : 'pb-20'} md:pb-0`}>
           {children}
         </main>
-        {!isStartPage && <BottomNav />}
+        {!isStartPage && !isCheckout && <BottomNav />}
       </div>
 
       <Toaster

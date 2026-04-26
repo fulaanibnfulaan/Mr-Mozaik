@@ -168,8 +168,8 @@ setLoading(true)
   return (
     <div dir={language === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-40 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 flex items-center gap-3">
-        <button onClick={() => router.back()} className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
+      <div className="fixed top-0 left-0 right-0 z-40 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 flex items-center justify-center relative">
+        <button onClick={() => router.back()} className="absolute left-4 w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
           <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </button>
         <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">{tr.title}</h1>

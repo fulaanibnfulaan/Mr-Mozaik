@@ -4,11 +4,12 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Phone, MapPin, Clock, ChevronDown, ChevronLeft, ChevronRight, Bike, Store, Drumstick } from 'lucide-react'
+import { Star, Phone, MapPin, Clock, ChevronDown, ChevronLeft, ChevronRight, Bike, Store, Drumstick, ShoppingBag } from 'lucide-react'
 import type { Language } from '@/lib/types'
 import { useAppStore } from '@/store/app'
+import { useCartStore } from '@/store/cart'
 import { seedMenuItems, seedCategories, seedOpeningHours } from '@/lib/seed-data'
-import { isRestaurantOpen } from '@/lib/utils'
+import { isRestaurantOpen, formatEuros } from '@/lib/utils'
 import { MenuCard } from '@/components/menu/menu-card'
 
 const DAY_LABELS: Record<Language, string[]> = {
@@ -21,6 +22,8 @@ const DAY_LABELS: Record<Language, string[]> = {
 
 export default function MenuPage() {
   const { language, orderType } = useAppStore()
+  const { getItemCount, getSubtotal } = useCartStore()
+  const itemCount = getItemCount()
   const [activeCategory, setActiveCategory] = useState(seedCategories[0]?.id ?? '')
   const [showHours, setShowHours] = useState(false)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -251,6 +254,32 @@ export default function MenuPage() {
           <p className="text-gray-300 dark:text-gray-600 text-[10px] mt-4">© 2026 Mr. Mozaik · Alle rechten voorbehouden</p>
         </div>
       </div>
+      {/* Winkelwagen balk */}
+      <AnimatePresence>
+        {itemCount > 0 && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+            className="fixed bottom-16 md:bottom-0 left-0 right-0 px-4 py-3 z-40"
+          >
+            <div className="max-w-2xl mx-auto md:max-w-3xl">
+              <Link
+                href="/winkelwagen"
+                className="flex items-center justify-between w-full bg-red-600 text-white font-bold py-4 px-5 rounded-xl shadow-[0_4px_20px_rgba(209,0,0,0.4)] hover:bg-red-700 transition-colors"
+              >
+                <span className="text-sm bg-white/15 rounded-lg px-2 py-0.5">{itemCount} {itemCount === 1 ? 'item' : 'items'}</span>
+                <span className="flex items-center gap-2">
+                  <ShoppingBag className="w-4 h-4" />
+                  {language === 'nl' ? 'Bekijk bestelling' : language === 'de' ? 'Bestellung ansehen' : 'View order'}
+                </span>
+                <span>{formatEuros(getSubtotal())}</span>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }

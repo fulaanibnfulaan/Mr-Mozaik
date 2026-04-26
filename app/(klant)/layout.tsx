@@ -37,6 +37,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname()
   const isStartPage = pathname === '/'
   const hideStartBtn = pathname === '/' || pathname === '/winkelwagen' || pathname === '/checkout'
+  const isCheckout = pathname === '/checkout'
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const [showCart, setShowCart] = useState(false)
@@ -77,23 +78,25 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
             <span className="text-xs font-bold">Start</span>
           </Link>
         )}
-        <div className={`flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5 ${hideStartBtn ? 'mx-auto' : ''}`}>
-          {(['bezorgen', 'afhalen'] as const).map(type => (
-            <button
-              key={type}
-              onClick={() => setOrderType(type)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-xs font-bold transition-all ${
-                orderType === type
-                  ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'
-                  : 'text-gray-500 dark:text-gray-400'
-              }`}
-            >
-              {type === 'bezorgen' ? <Bike className="w-3 h-3" /> : <Store className="w-3 h-3" />}
-              {type === 'bezorgen' ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
-                                  : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
-            </button>
-          ))}
-        </div>
+        {!isCheckout && (
+          <div className={`flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5 ${hideStartBtn ? 'mx-auto' : ''}`}>
+            {(['bezorgen', 'afhalen'] as const).map(type => (
+              <button
+                key={type}
+                onClick={() => setOrderType(type)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-xs font-bold transition-all ${
+                  orderType === type
+                    ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'
+                    : 'text-gray-500 dark:text-gray-400'
+                }`}
+              >
+                {type === 'bezorgen' ? <Bike className="w-3 h-3" /> : <Store className="w-3 h-3" />}
+                {type === 'bezorgen' ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
+                                    : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Desktop top nav — hidden on mobile, hidden on start page */}
@@ -106,25 +109,29 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
         ) : <div />}
         <div className="flex items-center gap-8">
           {/* Bezorgen / Afhalen toggle */}
-          <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
-            {(['bezorgen', 'afhalen'] as const).map(type => (
-              <button
-                key={type}
-                onClick={() => setOrderType(type)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-[10px] text-xs font-bold transition-all ${
-                  orderType === type
-                    ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'
-                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
-                }`}
-              >
-                {type === 'bezorgen' ? <Bike className="w-3.5 h-3.5" /> : <Store className="w-3.5 h-3.5" />}
-                {type === 'bezorgen' ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
-                                    : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
-              </button>
-            ))}
-          </div>
+          {!isCheckout && (
+            <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
+              {(['bezorgen', 'afhalen'] as const).map(type => (
+                <button
+                  key={type}
+                  onClick={() => setOrderType(type)}
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-[10px] text-xs font-bold transition-all ${
+                    orderType === type
+                      ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+                  }`}
+                >
+                  {type === 'bezorgen' ? <Bike className="w-3.5 h-3.5" /> : <Store className="w-3.5 h-3.5" />}
+                  {type === 'bezorgen' ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
+                                      : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
+                </button>
+              ))}
+            </div>
+          )}
 
-          <Link href="/menu" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Menu</Link>
+          {!isCheckout && (
+            <Link href="/menu" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Menu</Link>
+          )}
 
           {/* Dark mode toggle */}
           <button

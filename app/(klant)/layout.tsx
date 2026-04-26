@@ -144,9 +144,8 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
           </button>
 
           {/* Language switcher */}
-          <div className="relative" ref={langRef}>
+          <div className="relative" ref={langRef} onMouseEnter={() => setShowLang(true)} onMouseLeave={() => setShowLang(false)}>
             <button
-              onClick={() => setShowLang(v => !v)}
               className="flex items-center gap-1.5 p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Taal wijzigen"
             >

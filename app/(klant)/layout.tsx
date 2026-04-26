@@ -142,7 +142,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
       </div>
 
       {/* Desktop top nav — hidden on mobile, hidden on start page */}
-      <nav className={`${isStartPage ? '!hidden' : 'hidden md:flex'} items-center justify-between px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm`}>
+      <nav className={`${isStartPage || isCheckout ? '!hidden' : 'hidden md:flex'} items-center justify-between px-8 py-4 bg-[#EAE5D6] dark:bg-gray-900 border-b border-black/5 dark:border-gray-800 sticky top-0 z-50 shadow-sm`}>
         {!hideStartBtn ? (
           <Link href="/" className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
             <ChevronLeft className="w-4 h-4" />

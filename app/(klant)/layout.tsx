@@ -38,7 +38,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const isStartPage = pathname === '/'
   const hideStartBtn = pathname === '/' || pathname === '/winkelwagen' || pathname === '/checkout'
   const isCheckout = pathname === '/checkout'
-  const hideOrderToggle = pathname === '/' || pathname === '/checkout' || pathname === '/menu' || pathname === '/winkelwagen'
+  const hideOrderToggle = pathname === '/' || pathname === '/checkout' || pathname === '/menu' || pathname === '/winkelwagen' || pathname === '/register'
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)

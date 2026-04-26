@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, CheckCircle2, Loader2, Banknote } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCartStore } from '@/store/cart'
 import { useAppStore } from '@/store/app'
@@ -28,7 +28,7 @@ const translations: Record<Language, Record<string, string>> = {
     title: 'Afrekenen', delivery: 'Bezorgen', pickup: 'Afhalen',
     contactless: 'Contactloos bezorgen', contactless_desc: 'Zet voor de deur',
     when: 'Wanneer?', asap: 'Zo snel mogelijk (~25 min)', schedule: 'Kies tijdstip',
-    payment: 'Betaalmethode', ideal: 'iDEAL', card: 'Creditcard', giftcard: 'Cadeaukaart',
+    payment: 'Betaalmethode', ideal: 'iDEAL', card: 'Creditcard', giftcard: 'Cadeaukaart', cash: 'Contant',
     note: 'Opmerkingen voor de keuken (optioneel)',
     place_order: 'Bestelling plaatsen', processing: 'Verwerken...',
     subtotal: 'Subtotaal', delivery_fee: 'Bezorgkosten', tip: 'Fooi', total: 'Totaal',
@@ -37,7 +37,7 @@ const translations: Record<Language, Record<string, string>> = {
     title: 'Checkout', delivery: 'Delivery', pickup: 'Pickup',
     contactless: 'Contactless delivery', contactless_desc: 'Leave at the door',
     when: 'When?', asap: 'As soon as possible (~25 min)', schedule: 'Choose time',
-    payment: 'Payment method', ideal: 'iDEAL', card: 'Credit card', giftcard: 'Gift card',
+    payment: 'Payment method', ideal: 'iDEAL', card: 'Credit card', giftcard: 'Gift card', cash: 'Cash',
     note: 'Notes for the kitchen (optional)',
     place_order: 'Place order', processing: 'Processing...',
     subtotal: 'Subtotal', delivery_fee: 'Delivery fee', tip: 'Tip', total: 'Total',
@@ -46,7 +46,7 @@ const translations: Record<Language, Record<string, string>> = {
     title: 'Ödeme', delivery: 'Teslimat', pickup: 'Gel al',
     contactless: 'Temassız teslimat', contactless_desc: 'Kapıya bırak',
     when: 'Ne zaman?', asap: 'En kısa sürede (~25 dk)', schedule: 'Zaman seç',
-    payment: 'Ödeme yöntemi', ideal: 'iDEAL', card: 'Kredi kartı', giftcard: 'Hediye kartı',
+    payment: 'Ödeme yöntemi', ideal: 'iDEAL', card: 'Kredi kartı', giftcard: 'Hediye kartı', cash: 'Nakit',
     note: 'Mutfak için notlar (isteğe bağlı)',
     place_order: 'Sipariş ver', processing: 'İşleniyor...',
     subtotal: 'Ara toplam', delivery_fee: 'Teslimat ücreti', tip: 'Bahşiş', total: 'Toplam',
@@ -55,7 +55,7 @@ const translations: Record<Language, Record<string, string>> = {
     title: 'الدفع', delivery: 'توصيل', pickup: 'استلام',
     contactless: 'توصيل بدون تلامس', contactless_desc: 'اترك أمام الباب',
     when: 'متى؟', asap: 'في أقرب وقت (~25 دقيقة)', schedule: 'اختر وقتاً',
-    payment: 'طريقة الدفع', ideal: 'iDEAL', card: 'بطاقة ائتمان', giftcard: 'بطاقة هدية',
+    payment: 'طريقة الدفع', ideal: 'iDEAL', card: 'بطاقة ائتمان', giftcard: 'بطاقة هدية', cash: 'نقدًا',
     note: 'ملاحظات للمطبخ (اختياري)',
     place_order: 'تأكيد الطلب', processing: 'جارٍ المعالجة...',
     subtotal: 'المجموع الفرعي', delivery_fee: 'رسوم التوصيل', tip: 'إكرامية', total: 'المجموع',
@@ -64,7 +64,7 @@ const translations: Record<Language, Record<string, string>> = {
     title: 'Kasse', delivery: 'Lieferung', pickup: 'Abholung',
     contactless: 'Kontaktlose Lieferung', contactless_desc: 'Vor die Tür stellen',
     when: 'Wann?', asap: 'So schnell wie möglich (~25 Min.)', schedule: 'Zeit wählen',
-    payment: 'Zahlungsmethode', ideal: 'iDEAL', card: 'Kreditkarte', giftcard: 'Geschenkkarte',
+    payment: 'Zahlungsmethode', ideal: 'iDEAL', card: 'Kreditkarte', giftcard: 'Geschenkkarte', cash: 'Bargeld',
     note: 'Anmerkungen für die Küche (optional)',
     place_order: 'Bestellung aufgeben', processing: 'Wird verarbeitet...',
     subtotal: 'Zwischensumme', delivery_fee: 'Liefergebühr', tip: 'Trinkgeld', total: 'Gesamt',
@@ -89,9 +89,9 @@ export default function CheckoutPage() {
   })
 
   const [contactless, setContactless] = useState(false)
-  const [timeOption, setTimeOption] = useState<'asap' | 'schedule'>('asap')
+  const [timeOption, setTimeOption] = useState<'asap' | 'schedule'>(orderType === 'afhalen' ? 'schedule' : 'asap')
   const [selectedTime, setSelectedTime] = useState<string>(availableSlots[0] ?? '')
-  const [paymentMethod, setPaymentMethod] = useState<'ideal' | 'card' | 'giftcard'>('ideal')
+  const [paymentMethod, setPaymentMethod] = useState<'ideal' | 'card' | 'giftcard' | 'cash'>('ideal')
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
   const [adresQuery, setAdresQuery] = useState('')
@@ -279,7 +279,7 @@ setLoading(true)
         {/* When */}
         <Section title={tr.when}>
           <div className="space-y-2">
-            {(['asap', 'schedule'] as const).map(option => (
+            {(['asap', 'schedule'] as const).filter(o => !(o === 'asap' && orderType === 'afhalen')).map(option => (
               <button key={option} onClick={() => setTimeOption(option)}
                 className={`w-full flex items-center gap-3 p-3.5 rounded-xl border transition-all ${
                   timeOption === option ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-transparent bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
@@ -330,7 +330,7 @@ setLoading(true)
         {/* Payment */}
         <Section title={tr.payment}>
           <div className="space-y-2">
-            {(['ideal', 'card', 'giftcard'] as const).map(method => (
+            {(['ideal', 'card', 'cash', 'giftcard'] as const).map(method => (
               <div key={method}>
                 <button onClick={() => setPaymentMethod(method)}
                   className={`w-full flex items-center gap-3 p-3.5 rounded-xl border transition-all ${
@@ -342,6 +342,7 @@ setLoading(true)
                   <div className="flex items-center gap-2">
                     {method === 'ideal' && <Smartphone className="w-5 h-5 text-blue-500" />}
                     {method === 'card' && <CreditCard className="w-5 h-5 text-gray-400" />}
+                    {method === 'cash' && <Banknote className="w-5 h-5 text-green-600" />}
                     {method === 'giftcard' && <Gift className="w-5 h-5 text-red-600" />}
                     <span className={`text-sm font-medium ${paymentMethod === method ? 'text-red-600' : 'text-gray-600 dark:text-gray-300'}`}>{tr[method]}</span>
                   </div>

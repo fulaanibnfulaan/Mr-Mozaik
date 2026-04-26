@@ -20,7 +20,7 @@ const SAUS_ERBIJ: OptionGroup = {
   name_en: 'Sauce on side?',
   name_tr: 'Yanında sos?',
   name_ar: 'صوص جانبي؟',
-  is_multi_select: false,
+  is_multi_select: true,
   values: [
     { id: 'ov-knof-bij',     name_nl: 'Knoflook', name_en: 'Garlic',   name_tr: 'Sarımsak', name_ar: 'ثوم',    price: 0.25 },
     { id: 'ov-sambal-bij',   name_nl: 'Sambal',   name_en: 'Sambal',   name_tr: 'Sambal',   name_ar: 'صمبل',   price: 0.25 },

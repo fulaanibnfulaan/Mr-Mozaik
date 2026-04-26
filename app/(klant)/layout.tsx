@@ -36,7 +36,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const { language, setLanguage, orderType, setOrderType, userMode } = useAppStore()
   const pathname = usePathname()
   const isStartPage = pathname === '/'
-  const hideStartBtn = pathname === '/' || pathname === '/winkelwagen'
+  const hideStartBtn = pathname === '/' || pathname === '/winkelwagen' || pathname === '/checkout'
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const [showCart, setShowCart] = useState(false)

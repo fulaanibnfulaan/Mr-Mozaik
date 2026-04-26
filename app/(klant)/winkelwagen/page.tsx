@@ -69,9 +69,7 @@ export default function WinkelwagenPage() {
         <Link href="/menu" className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
           <ChevronLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </Link>
-        <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">
-          {language === 'nl' ? 'Jouw bestelling' : language === 'en' ? 'Your order' : language === 'tr' ? 'Siparişiniz' : language === 'de' ? 'Deine Bestellung' : 'طلبك'}
-        </h1>
+        <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">Menu</h1>
       </div>
 
       <div className="px-4 md:px-8 space-y-3 max-w-2xl mx-auto md:max-w-3xl">

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Eye, EyeOff, UserPlus, Loader2, Check, X, Mail, RefreshCw } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff, UserPlus, Loader2, Check, X, Mail, RefreshCw, Phone } from 'lucide-react'
 import { useAppStore } from '@/store/app'
 
 const translations = {
@@ -11,6 +11,7 @@ const translations = {
     title: 'Account aanmaken',
     name: 'Volledige naam',
     email: 'E-mailadres',
+    phone: 'Telefoonnummer',
     password: 'Wachtwoord',
     confirm: 'Wachtwoord bevestigen',
     submit: 'Account aanmaken',
@@ -34,6 +35,7 @@ const translations = {
     title: 'Create account',
     name: 'Full name',
     email: 'Email address',
+    phone: 'Phone number',
     password: 'Password',
     confirm: 'Confirm password',
     submit: 'Create account',
@@ -57,6 +59,7 @@ const translations = {
     title: 'Hesap oluştur',
     name: 'Ad Soyad',
     email: 'E-posta adresi',
+    phone: 'Telefon numarası',
     password: 'Şifre',
     confirm: 'Şifreyi onayla',
     submit: 'Hesap oluştur',
@@ -80,6 +83,7 @@ const translations = {
     title: 'إنشاء حساب',
     name: 'الاسم الكامل',
     email: 'البريد الإلكتروني',
+    phone: 'رقم الهاتف',
     password: 'كلمة المرور',
     confirm: 'تأكيد كلمة المرور',
     submit: 'إنشاء الحساب',
@@ -103,6 +107,7 @@ const translations = {
     title: 'Konto erstellen',
     name: 'Vollständiger Name',
     email: 'E-Mail-Adresse',
+    phone: 'Telefonnummer',
     password: 'Passwort',
     confirm: 'Passwort bestätigen',
     submit: 'Konto erstellen',
@@ -140,6 +145,7 @@ export default function RegisterPage() {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -238,6 +244,18 @@ export default function RegisterPage() {
                 required
                 className="w-full bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-2xl px-4 py-3.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 outline-none focus:border-red-300 transition-colors"
               />
+
+              <div className="relative">
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
+                  placeholder={tr.phone}
+                  required
+                  className="w-full bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-2xl pl-10 pr-4 py-3.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 outline-none focus:border-red-300 transition-colors"
+                />
+              </div>
 
               <div>
                 <div className="relative">

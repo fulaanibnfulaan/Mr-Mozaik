@@ -66,8 +66,8 @@ export default function WinkelwagenPage() {
   return (
     <div className="pb-36" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="sticky top-0 md:top-[68px] bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center gap-3">
-        <Link href="/menu" className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
+      <div className="sticky top-0 md:top-[68px] bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center justify-center relative">
+        <Link href="/menu" className="absolute left-4 w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
           <ChevronLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </Link>
         <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">

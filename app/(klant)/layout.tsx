@@ -71,6 +71,50 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="min-h-screen w-full bg-[#EAE5D6] dark:bg-gray-950">
+      {/* Welkomspagina toolbar — taal + donkere modus */}
+      {isStartPage && (
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-1">
+          <button
+            onClick={toggleDark}
+            className="p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            aria-label="Wissel weergave"
+          >
+            {dark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+          <div className="relative" onMouseEnter={() => setShowLang(true)} onMouseLeave={() => setShowLang(false)}>
+            <button className="flex items-center gap-1.5 p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <Globe className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase">{language}</span>
+            </button>
+            <AnimatePresence>
+              {showLang && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full right-0 mt-2 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-50 min-w-[148px]"
+                >
+                  {LANGS.map(l => (
+                    <button
+                      key={l.code}
+                      onClick={() => { setLanguage(l.code); setShowLang(false) }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-semibold transition-colors ${
+                        language === l.code
+                          ? 'bg-red-50 dark:bg-red-900/20 text-red-600'
+                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {LANG_NAMES[language][l.code]}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      )}
+
       {/* Mobile top strip — hidden on desktop, hidden on start page */}
       <div className={`md:hidden fixed top-0 left-0 right-0 z-50 items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : 'flex'}`}>
         {!hideStartBtn && (

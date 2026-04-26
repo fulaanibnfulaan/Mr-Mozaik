@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Minus, Plus, Trash2, ShoppingBag, Gift, X, ChevronRight } from 'lucide-react'
+import { Minus, Plus, Trash2, ShoppingBag, Gift, X, ChevronRight, ChevronLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCartStore } from '@/store/cart'
 import { useAppStore } from '@/store/app'
@@ -66,6 +66,10 @@ export default function WinkelwagenPage() {
     <div className="pb-36" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header */}
       <div className="px-4 md:px-8 pt-6 pb-4 max-w-2xl mx-auto md:max-w-3xl">
+        <Link href="/menu" className="inline-flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors mb-3">
+          <ChevronLeft className="w-4 h-4" />
+          <span className="text-sm font-bold">Menu</span>
+        </Link>
         <h1 className="font-display font-bold text-gray-900 dark:text-gray-100 text-2xl">
           {language === 'nl' ? 'Jouw bestelling' : language === 'en' ? 'Your order' : language === 'tr' ? 'Siparişiniz' : language === 'de' ? 'Deine Bestellung' : 'طلبك'}
         </h1>
@@ -255,12 +259,9 @@ export default function WinkelwagenPage() {
 
       {/* Sticky checkout */}
       <div className="fixed bottom-16 md:bottom-0 left-0 right-0 px-4 py-3 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-t border-black/8 dark:border-white/5">
-        <div className="max-w-2xl mx-auto md:max-w-3xl flex gap-3">
-          <Link href="/menu" className="flex items-center justify-center font-bold px-5 py-4 rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 text-gray-900 dark:text-gray-100 hover:bg-[#ede8da] dark:hover:bg-gray-700 transition-colors flex-shrink-0">
-            {language === 'nl' ? 'Menu' : language === 'de' ? 'Menü' : language === 'tr' ? 'Menü' : language === 'ar' ? 'القائمة' : 'Menu'}
-          </Link>
+        <div className="max-w-2xl mx-auto md:max-w-3xl">
           <motion.button onClick={() => router.push('/checkout')} whileTap={{ scale: 0.97 }}
-            className="flex-1 bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base shadow-[0_4px_20px_rgba(209,0,0,0.4)]">
+            className="w-full bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-between px-5 text-base shadow-[0_4px_20px_rgba(209,0,0,0.4)]">
             <span className="text-sm bg-white/15 rounded-lg px-2 py-0.5">{getItemCount()} {getItemCount() === 1 ? 'item' : 'items'}</span>
             <span>{language === 'nl' ? 'Doorgaan naar afrekenen' : language === 'de' ? 'Weiter zur Kasse' : 'Proceed to checkout'}</span>
             <span>{formatEuros(total)}</span>

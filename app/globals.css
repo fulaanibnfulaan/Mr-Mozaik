@@ -146,6 +146,18 @@
   background: linear-gradient(90deg, transparent, rgba(209,0,0,0.2), transparent);
 }
 
+/* ─── Dark mode transitie ─── */
+*, *::before, *::after {
+  transition-property: background-color, color, border-color, fill, stroke, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Zet transitie uit voor elementen die eigen animaties hebben */
+.no-transition, .no-transition * {
+  transition: none !important;
+}
+
 /* ─── Dark mode ─── */
 .dark body {
   background: #111827;

@@ -272,7 +272,7 @@ export default function MenuPage() {
                 <span className="text-sm bg-white/15 rounded-lg px-2 py-0.5">{itemCount} {itemCount === 1 ? 'item' : 'items'}</span>
                 <span className="flex items-center gap-2">
                   <ShoppingBag className="w-4 h-4" />
-                  {language === 'nl' ? 'Bekijk bestelling' : language === 'de' ? 'Bestellung ansehen' : 'View order'}
+                  {language === 'nl' ? 'Bekijk winkelwagen' : language === 'en' ? 'View cart' : language === 'tr' ? 'Sepeti gör' : language === 'de' ? 'Warenkorb ansehen' : 'عرض السلة'}
                 </span>
                 <span>{formatEuros(getSubtotal())}</span>
               </Link>

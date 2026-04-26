@@ -152,23 +152,31 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
               <Globe className="w-5 h-5" />
               <span className="text-xs font-bold uppercase">{language}</span>
             </button>
-            {showLang && (
-              <div className="absolute top-full right-0 mt-2 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-50 min-w-[148px]">
-                {LANGS.map(l => (
-                  <button
-                    key={l.code}
-                    onClick={() => { setLanguage(l.code); setShowLang(false) }}
-                    className={`w-full text-left px-4 py-2.5 text-sm font-semibold transition-colors ${
-                      language === l.code
-                        ? 'bg-red-50 dark:bg-red-900/20 text-red-600'
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-                    }`}
-                  >
-                    {LANG_NAMES[language][l.code]}
-                  </button>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {showLang && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full right-0 mt-2 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-50 min-w-[148px]"
+                >
+                  {LANGS.map(l => (
+                    <button
+                      key={l.code}
+                      onClick={() => { setLanguage(l.code); setShowLang(false) }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-semibold transition-colors ${
+                        language === l.code
+                          ? 'bg-red-50 dark:bg-red-900/20 text-red-600'
+                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {LANG_NAMES[language][l.code]}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {userMode !== 'guest' && (

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, User, UserPlus, Shield, X, Eye, EyeOff, Bike, Store } from 'lucide-react'
 import { useAppStore } from '@/store/app'
@@ -251,9 +251,9 @@ export default function WelcomePage() {
                 </div>
 
                 <div className="flex justify-end">
-                  <button type="button" className="text-xs text-gray-400 hover:text-red-600 transition-colors">
+                  <Link href="/wachtwoord-vergeten" onClick={() => setShowLogin(false)} className="text-xs text-gray-400 hover:text-red-600 transition-colors">
                     {t.forgot}
-                  </button>
+                  </Link>
                 </div>
 
                 <button

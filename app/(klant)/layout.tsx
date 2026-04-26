@@ -39,6 +39,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const hideStartBtn = pathname === '/' || pathname === '/winkelwagen' || pathname === '/checkout'
   const isCheckout = pathname === '/checkout'
   const hideOrderToggle = pathname === '/' || pathname === '/checkout' || pathname === '/menu' || pathname === '/winkelwagen' || pathname === '/register' || pathname === '/wachtwoord-vergeten'
+  const hideStrip = isStartPage || (hideStartBtn && hideOrderToggle)
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
@@ -112,8 +113,8 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
         </div>
       )}
 
-      {/* Mobile top strip — hidden on desktop, hidden on start page */}
-      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${isStartPage ? 'hidden' : 'flex'}`}>
+      {/* Mobile top strip — hidden on desktop, hidden on start page and pages with own header */}
+      <div className={`md:hidden fixed top-0 left-0 right-0 z-50 items-center justify-between px-4 py-2.5 bg-[#EAE5D6]/80 dark:bg-gray-950/80 backdrop-blur-xl ${hideStrip ? 'hidden' : 'flex'}`}>
         {!hideStartBtn && (
           <Link href="/" className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">
             <ChevronLeft className="w-4 h-4" />
@@ -229,7 +230,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
       <div className="w-full">
         <StoreHydration />
         <OfflineBanner />
-        <main className={`${isStartPage ? 'pt-0' : 'pt-[49px]'} md:pt-0 ${isStartPage ? 'pb-0' : 'pb-20'} md:pb-0`}>
+        <main className={`${isStartPage || hideStrip ? 'pt-0' : 'pt-[49px]'} md:pt-0 ${isStartPage ? 'pb-0' : 'pb-20'} md:pb-0`}>
           {children}
         </main>
         {!isStartPage && <BottomNav />}

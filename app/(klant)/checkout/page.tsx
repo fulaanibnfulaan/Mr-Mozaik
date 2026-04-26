@@ -168,7 +168,7 @@ setLoading(true)
   return (
     <div dir={language === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
       {/* Header */}
-      <div className="sticky top-[49px] md:top-0 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center gap-3">
+      <div className="sticky top-0 bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center gap-3">
         <button onClick={() => router.back()} className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
           <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </button>

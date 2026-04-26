@@ -166,7 +166,7 @@ export function ItemSheet({
         </div>
 
         {/* Footer */}
-        <div className="px-5 pt-4 pb-6 border-t border-black/5 dark:border-white/5 mt-2">
+        <div className="px-5 pt-4 pb-20 md:pb-6 border-t border-black/5 dark:border-white/5 mt-2">
           <div className="flex items-center justify-between gap-4">
             {/* Quantity */}
             <div className="flex items-center gap-2 bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl p-1">

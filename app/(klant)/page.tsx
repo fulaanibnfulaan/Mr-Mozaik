@@ -122,22 +122,27 @@ export default function WelcomePage() {
           {t.sub}
         </p>
 
-        {/* Bezorgen / Afhalen — direct naar menu */}
+        {/* Bezorgen / Afhalen toggle */}
         <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl p-1 gap-1 w-full mb-6 border border-black/8 dark:border-white/8">
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button
               key={type}
               onClick={() => setOrderType(type)}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${
-                orderType === type
-                  ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'
-                  : 'text-gray-500 dark:text-gray-400'
-              }`}
+              className="relative flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold z-0"
             >
-              {type === 'bezorgen' ? <Bike className="w-4 h-4" /> : <Store className="w-4 h-4" />}
-              {type === 'bezorgen'
-                ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
-                : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
+              {orderType === type && (
+                <motion.div
+                  layoutId="order-type-pill"
+                  className="absolute inset-0 bg-red-600 rounded-xl shadow-[0_2px_8px_rgba(209,0,0,0.35)]"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className={`relative z-10 flex items-center gap-2 transition-colors duration-150 ${orderType === type ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`}>
+                {type === 'bezorgen' ? <Bike className="w-4 h-4" /> : <Store className="w-4 h-4" />}
+                {type === 'bezorgen'
+                  ? (language === 'nl' ? 'Bezorgen' : language === 'en' ? 'Delivery' : language === 'tr' ? 'Teslimat' : language === 'de' ? 'Liefern' : 'توصيل')
+                  : (language === 'nl' ? 'Afhalen'  : language === 'en' ? 'Pickup'   : language === 'tr' ? 'Gel al'   : language === 'de' ? 'Abholen' : 'استلام')}
+              </span>
             </button>
           ))}
         </div>

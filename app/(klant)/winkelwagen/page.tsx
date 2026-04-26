@@ -65,15 +65,13 @@ export default function WinkelwagenPage() {
   return (
     <div className="pb-36" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="px-4 md:px-8 pt-6 pb-4 max-w-2xl mx-auto md:max-w-3xl">
-        <Link href="/menu" className="inline-flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors mb-3">
-          <ChevronLeft className="w-4 h-4" />
-          <span className="text-sm font-bold">Menu</span>
+      <div className="sticky top-[49px] md:top-[73px] bg-[#EAE5D6]/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/8 dark:border-white/5 px-4 py-4 z-10 flex items-center gap-3">
+        <Link href="/menu" className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-sm">
+          <ChevronLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </Link>
-        <h1 className="font-display font-bold text-gray-900 dark:text-gray-100 text-2xl">
+        <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">
           {language === 'nl' ? 'Jouw bestelling' : language === 'en' ? 'Your order' : language === 'tr' ? 'Siparişiniz' : language === 'de' ? 'Deine Bestellung' : 'طلبك'}
         </h1>
-        <p className="text-gray-400 text-sm mt-0.5">{getItemCount()} {getItemCount() === 1 ? 'item' : 'items'}</p>
       </div>
 
       <div className="px-4 md:px-8 space-y-3 max-w-2xl mx-auto md:max-w-3xl">

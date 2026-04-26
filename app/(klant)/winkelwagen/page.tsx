@@ -74,19 +74,6 @@ export default function WinkelwagenPage() {
       </div>
 
       <div className="px-4 md:px-8 space-y-3 max-w-2xl mx-auto md:max-w-3xl">
-        {/* Free delivery bar */}
-        {toFree > 0 && (
-          <div className="bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl border border-black/8 dark:border-white/5 shadow-sm p-3">
-            <p className="text-gray-500 dark:text-gray-400 text-xs mb-2">
-              {language === 'nl' ? 'Nog' : language === 'de' ? 'Noch' : 'Only'} <span className="text-red-600 font-bold">{formatEuros(toFree)}</span>{' '}
-              {language === 'nl' ? 'voor gratis bezorging' : language === 'de' ? 'bis zur kostenlosen Lieferung' : 'for free delivery'}
-            </p>
-            <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-              <motion.div className="h-full bg-red-600 rounded-full" animate={{ width: `${Math.min((subtotal / DELIVERY_THRESHOLD) * 100, 100)}%` }} transition={{ duration: 0.5 }} />
-            </div>
-          </div>
-        )}
-
         {/* Items */}
         <AnimatePresence>
           {items.map(ci => {
@@ -275,6 +262,17 @@ export default function WinkelwagenPage() {
             <span>{language === 'nl' ? 'Doorgaan naar afrekenen' : language === 'de' ? 'Weiter zur Kasse' : 'Proceed to checkout'}</span>
             <span>{formatEuros(total)}</span>
           </motion.button>
+          {toFree > 0 && (
+            <div>
+              <p className="text-center text-xs text-gray-500 dark:text-gray-400 mb-1.5">
+                {language === 'nl' ? 'Nog' : language === 'de' ? 'Noch' : 'Only'} <span className="text-red-600 font-bold">{formatEuros(toFree)}</span>{' '}
+                {language === 'nl' ? 'voor gratis bezorging' : language === 'de' ? 'bis zur kostenlosen Lieferung' : 'for free delivery'}
+              </p>
+              <div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <motion.div className="h-full bg-red-600 rounded-full" animate={{ width: `${Math.min((subtotal / DELIVERY_THRESHOLD) * 100, 100)}%` }} transition={{ duration: 0.5 }} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -122,12 +122,12 @@ export default function WelcomePage() {
           {t.sub}
         </p>
 
-        {/* Bezorgen / Afhalen toggle */}
+        {/* Bezorgen / Afhalen — direct naar menu */}
         <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-2xl p-1 gap-1 w-full mb-6 border border-black/8 dark:border-white/8">
           {(['bezorgen', 'afhalen'] as const).map(type => (
             <button
               key={type}
-              onClick={() => setOrderType(type)}
+              onClick={() => { setOrderType(type); setUserMode('guest'); router.push('/menu') }}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all ${
                 orderType === type
                   ? 'bg-red-600 text-white shadow-[0_2px_8px_rgba(209,0,0,0.35)]'

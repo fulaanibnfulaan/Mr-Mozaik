@@ -38,6 +38,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
   const isStartPage = pathname === '/'
   const hideStartBtn = pathname === '/' || pathname === '/winkelwagen' || pathname === '/checkout'
   const isCheckout = pathname === '/checkout'
+  const hideOrderToggle = pathname === '/' || pathname === '/checkout' || pathname === '/menu' || pathname === '/winkelwagen'
   const [dark, setDark] = useState(false)
   const [showLang, setShowLang] = useState(false)
   const [showCart, setShowCart] = useState(false)
@@ -78,7 +79,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
             <span className="text-xs font-bold">Start</span>
           </Link>
         )}
-        {!isCheckout && (
+        {!hideOrderToggle && (
           <div className={`flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5 ${hideStartBtn ? 'mx-auto' : ''}`}>
             {(['bezorgen', 'afhalen'] as const).map(type => (
               <button
@@ -109,7 +110,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
         ) : <div />}
         <div className="flex items-center gap-8">
           {/* Bezorgen / Afhalen toggle */}
-          {!isCheckout && (
+          {!hideOrderToggle && (
             <div className="flex bg-[#F5F0E8] dark:bg-gray-800 rounded-xl p-0.5 gap-0.5">
               {(['bezorgen', 'afhalen'] as const).map(type => (
                 <button
@@ -129,7 +130,7 @@ export default function KlantLayout({ children }: { children: React.ReactNode })
             </div>
           )}
 
-          {!isCheckout && (
+          {!hideOrderToggle && (
             <Link href="/menu" className="text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-red-600 transition-colors">Menu</Link>
           )}
 

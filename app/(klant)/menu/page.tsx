@@ -171,12 +171,15 @@ export default function MenuPage() {
             {showHours && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                 <div className="px-4 md:px-8 py-3 border-t border-black/5 dark:border-white/5 md:grid md:grid-cols-2 md:gap-x-12 space-y-1.5 md:space-y-0">
-                  {seedOpeningHours.map((h, i) => (
-                    <div key={i} className={`flex justify-between text-xs py-0.5 ${i === todayIdx ? 'font-bold text-red-600' : 'text-gray-600 dark:text-gray-400'}`}>
-                      <span>{DAY_LABELS[language][i]}</span>
-                      <span>{h.closed ? (language === 'nl' ? 'Gesloten' : language === 'de' ? 'Geschlossen' : 'Closed') : `${h.open_time} – ${h.close_time}`}</span>
-                    </div>
-                  ))}
+                  {[1, 2, 3, 4, 5, 6, 0].map(i => {
+                    const h = seedOpeningHours[i]
+                    return (
+                      <div key={i} className={`flex justify-between text-xs py-0.5 ${i === todayIdx ? 'font-bold text-red-600' : 'text-gray-600 dark:text-gray-400'}`}>
+                        <span>{DAY_LABELS[language][i]}</span>
+                        <span>{h.closed ? (language === 'nl' ? 'Gesloten' : language === 'de' ? 'Geschlossen' : 'Closed') : `${h.open_time} – ${h.close_time}`}</span>
+                      </div>
+                    )
+                  })}
                 </div>
               </motion.div>
             )}

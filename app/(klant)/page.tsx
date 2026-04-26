@@ -95,7 +95,7 @@ export default function WelcomePage() {
     setLoading(true)
     await new Promise(r => setTimeout(r, 900))
     setUserMode('account')
-    router.push('/account')
+    router.push('/menu')
   }
 
   return (

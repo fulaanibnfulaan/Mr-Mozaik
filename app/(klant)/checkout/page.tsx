@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, CheckCircle2, Loader2, Banknote } from 'lucide-react'
+import { ArrowLeft, MapPin, Clock, CreditCard, Smartphone, Gift, CheckCircle2, Loader2, Banknote, Sun, Moon, Globe } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCartStore } from '@/store/cart'
 import { useAppStore } from '@/store/app'
@@ -74,7 +74,7 @@ const translations: Record<Language, Record<string, string>> = {
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { language, orderType } = useAppStore()
+  const { language, setLanguage, orderType } = useAppStore()
   const tr = translations[language]
   const { items, tip, getSubtotal, clearCart, couponDiscount } = useCartStore()
 
@@ -87,6 +87,17 @@ export default function CheckoutPage() {
     const [h, m] = s.split(':').map(Number)
     return h * 60 + m > nowMin
   })
+
+  const [dark, setDark] = useState(() => typeof window !== 'undefined' && document.documentElement.classList.contains('dark'))
+  const [showLang, setShowLang] = useState(false)
+  const langRef = useRef<HTMLDivElement>(null)
+
+  const toggleDark = () => {
+    const next = !dark
+    setDark(next)
+    localStorage.setItem('darkMode', String(next))
+    document.documentElement.classList.toggle('dark', next)
+  }
 
   const [contactless, setContactless] = useState(false)
   const [timeOption, setTimeOption] = useState<'asap' | 'schedule'>(orderType === 'afhalen' ? 'schedule' : 'asap')
@@ -173,6 +184,35 @@ setLoading(true)
           <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </button>
         <h1 className="font-display font-bold text-xl text-gray-900 dark:text-gray-100">{tr.title}</h1>
+        <div className="absolute right-4 flex items-center gap-1">
+          <button onClick={toggleDark} className="p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            {dark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+          <div className="relative" ref={langRef} onMouseEnter={() => setShowLang(true)} onMouseLeave={() => setShowLang(false)}>
+            <button onClick={() => setShowLang(v => !v)} className="flex items-center gap-1 p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <Globe className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase">{language}</span>
+            </button>
+            <AnimatePresence>
+              {showLang && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full right-0 mt-2 bg-[#F5F0E8] dark:bg-gray-800 border border-black/8 dark:border-white/8 rounded-xl shadow-lg overflow-hidden z-50 min-w-[148px]"
+                >
+                  {(['nl','en','tr','ar','de'] as Language[]).map(l => (
+                    <button key={l} onClick={() => { setLanguage(l); setShowLang(false) }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-semibold transition-colors ${language === l ? 'bg-red-50 dark:bg-red-900/20 text-red-600' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}>
+                      {l === 'nl' ? 'Nederlands' : l === 'en' ? 'English' : l === 'tr' ? 'Türkçe' : l === 'ar' ? 'العربية' : 'Deutsch'}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
 
       <div className="px-4 md:px-8 pt-[68px] pb-36 space-y-3 max-w-2xl mx-auto md:max-w-3xl">

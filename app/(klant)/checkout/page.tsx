@@ -74,7 +74,7 @@ const translations: Record<Language, Record<string, string>> = {
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { language } = useAppStore()
+  const { language, orderType } = useAppStore()
   const tr = translations[language]
   const { items, tip, getSubtotal, clearCart, couponDiscount } = useCartStore()
 
@@ -88,7 +88,6 @@ export default function CheckoutPage() {
     return h * 60 + m > nowMin
   })
 
-  const [orderType, setOrderType] = useState<'bezorgen' | 'afhalen'>('bezorgen')
   const [contactless, setContactless] = useState(false)
   const [timeOption, setTimeOption] = useState<'asap' | 'schedule'>('asap')
   const [selectedTime, setSelectedTime] = useState<string>(availableSlots[0] ?? '')
@@ -179,17 +178,8 @@ setLoading(true)
       <div className="px-4 md:px-8 pt-4 pb-36 space-y-3 max-w-2xl mx-auto md:max-w-3xl">
         {/* Delivery method */}
         <Section title={language === 'nl' ? 'Bezorgmethode' : language === 'en' ? 'Delivery method' : language === 'tr' ? 'Teslimat yöntemi' : language === 'de' ? 'Liefermethode' : 'طريقة التوصيل'}>
-          <div className="flex gap-2">
-            {(['bezorgen', 'afhalen'] as const).map(type => (
-              <button key={type} onClick={() => setOrderType(type)}
-                className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all ${
-                  orderType === type
-                    ? 'bg-red-600 text-white shadow-[0_4px_12px_rgba(209,0,0,0.35)]'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-600'
-                }`}>
-                {type === 'bezorgen' ? tr.delivery : tr.pickup}
-              </button>
-            ))}
+          <div className="flex items-center gap-2 bg-red-600 text-white py-3 px-4 rounded-xl font-semibold text-sm">
+            {orderType === 'bezorgen' ? tr.delivery : tr.pickup}
           </div>
           <AnimatePresence>
             {orderType === 'bezorgen' && (
